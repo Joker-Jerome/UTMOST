@@ -3,9 +3,6 @@
 '''
 joint_GBJ 
 
-
-It defines classes_and_methods
-
 @author:     zhao_lab
 
 @copyright:  2017 organization_name. All rights reserved.
@@ -109,10 +106,12 @@ def run(args):
     
     # output dir 
     out_dir = args.output_dir
-    
-    
+     
     # read list of genes
     gene_info = pd.read_table(info_file)
+    
+    # output name
+    output_name = args.output_name 
     
     # r interface
     r_requirement()
@@ -124,10 +123,10 @@ def run(args):
     gene_id = gene_info["gene_ensg"].copy()
     gene_name = gene_info["gene_ensg"].copy()
     
-    #read z-score file
+    # read z-score file
     logging.info("Read in z-score files")
     
-    #directory of z-score
+    # directory of z-score
     os.chdir(single_mask_dir) 
     
     # search for files ending with .csv
@@ -137,16 +136,14 @@ def run(args):
         if file.endswith(".csv"):
             fi.append(file)
     logging.info(str(len(fi)) + " files in total.")
-    N = len(fi)
-    
+    N = len(fi)    
     zscore_dict = {}
     for i in range(N):
         nam = "zscore_" + str(i+1)
         zscore_dict[nam] = pd.read_csv(fi[i], header = "infer")
     
     
-    #======
-    #output file: list of test score and p-value
+    # output file: list of test score and p-value
     logging.info("compute p-value for genes")
     #directory of db
     os.chdir(db_dir) 
@@ -248,7 +245,7 @@ def run(args):
             print(GBJ_res.rx2("GBJ_pvalue")[0])
     # output the results
     os.chdir(out_dir)
-    filename = "outcome_" + str(nstart) + "_" + str(nend) + ".txt"
+    filename = output_name + "_" + str(nstart) + "_" + str(nend) + ".txt"
     outcome.to_csv(filename, header=None, index=None, sep='\t', mode='w')
     
 
@@ -277,7 +274,7 @@ if __name__ == "__main__":
                         default="/ysm-gpfs/pi/zhao/ml2376/association_v3/AD/single_mask")
     
     parser.add_argument("--gene_info",
-                        help="name of folder containing summary data",
+                        help="name of folder containing gene list",
                         default="/ysm-gpfs/home/zy92/project/metaxcan/createdb/genelist/gene_info.txt")
     
     parser.add_argument("--start_gene_index",
@@ -287,6 +284,10 @@ if __name__ == "__main__":
     parser.add_argument("--end_gene_index",
                         help="index of the ending gene",
                         default=100)
+    
+    parser.add_argument("--output_name",
+                        help="the name of output file",
+                        default="Outcome")
 
    
 
