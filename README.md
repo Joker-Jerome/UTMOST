@@ -20,13 +20,20 @@ R is needed for GBJ testing.
 
 ### Joint GBJ Test
 joint_GBJ.py
-usage: joint_GBJ.py [-h] [--verbosity VERBOSITY] [--weight_db WEIGHT_DB]
-                    [--output_dir OUTPUT_DIR] [--cov_dir COV_DIR]
-                    [--input_folder INPUT_FOLDER] [--gene_info GENE_INFO]
-                    [--start_gene_index START_GENE_INDEX]
-                    [--end_gene_index END_GENE_INDEX]
+
+usage: joint_GBJ.py 
+[-h] 
+[--verbosity VERBOSITY] 
+[--weight_db WEIGHT_DB]
+[--output_dir OUTPUT_DIR] 
+[--cov_dir COV_DIR]
+[--input_folder INPUT_FOLDER] 
+[--gene_info GENE_INFO]                    
+[--start_gene_index START_GENE_INDEX]
+[--end_gene_index END_GENE_INDEX]
 
 optional arguments:
+
   -h, --help            show this help message and exit
   --verbosity VERBOSITY
                         Log verbosity level. 1 is everything being logged. 10
