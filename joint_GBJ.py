@@ -87,10 +87,10 @@ def run(args):
     """
     # argument reading
     # index of starting task
-    nstart = args.start_gene_index
+    nstart = int(args.start_gene_index)
     
     # index of ending task
-    nend = args.end_gene_index
+    nend = int(args.end_gene_index)
     
     # single mask dir
     single_mask_dir = args.input_folder
