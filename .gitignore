@@ -1,0 +1,13 @@
+.idea
+*.pyc
+data*
+intermediate*
+results*
+forensics*
+kk*
+support_data*
+build*
+
+_prof
+_scripts
+_test
