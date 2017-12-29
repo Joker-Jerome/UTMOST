@@ -12,9 +12,14 @@ R is needed for GBJ testing.
 
 ## Project Layout
 
-## Input data
+Covariance.py
 
-## Output Format
+joint_GBJ.py
+
+test_tool
+
+metax module
+
 
 ## Usage
 
