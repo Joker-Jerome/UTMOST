@@ -18,8 +18,67 @@ R is needed for GBJ testing.
 
 ## Usage
 
+### Covariance Calculation
+
+usage: Covariance.py [-h] 
+
+[--verbosity VERBOSITY]
+                              
+[--weight_db WEIGHT_DB]
+
+[--input_folder INPUT_FOLDER]
+
+[--covariance_output COVARIANCE_OUTPUT]
+
+[--input_format INPUT_FORMAT]
+
+[--min_maf_filter MIN_MAF_FILTER]
+
+[--max_maf_filter MAX_MAF_FILTER]
+
+[--max_snps_in_gene MAX_SNPS_IN_GENE]
+
+Build covariances from dosage data and weights database.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  
+  --verbosity VERBOSITY
+  
+                        Log verbosity level. 1 is everything being logged. 10
+                        is only high level messages, above 10 will hardly log
+                        anything
+  --weight_db WEIGHT_DB
+  
+                        name of weight db in data folder
+                        
+  --input_folder INPUT_FOLDER
+  
+                        name of folder containing dosage data
+                        
+  --covariance_output COVARIANCE_OUTPUT
+  
+                        Name of file to dump covariance results in. Defaults
+                        to 'intermediate/cov/' + file name prefix from '--
+                        weight_db' argument
+                        
+  --input_format INPUT_FORMAT
+  
+                        Input dosage files format. Valid options are: IMPUTE,
+                        PrediXcan
+                        
+  --min_maf_filter MIN_MAF_FILTER
+  
+                        Filter snps according to this maf
+                        
+  --max_maf_filter MAX_MAF_FILTER
+  
+                        Filter snps according to this maf
+                        
+  --max_snps_in_gene MAX_SNPS_IN_GENE
+  
+                        Ignore any gene that has snps above this value
 ### Joint GBJ Test
-joint_GBJ.py
 
 usage: joint_GBJ.py 
 
