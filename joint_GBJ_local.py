@@ -119,9 +119,9 @@ def run(args):
     importr("GBJ")
     
     P = nend - nstart + 1
-    gene_ensg = gene_info["gene_ensg"].copy()
-    gene_id = gene_info["gene_ensg"].copy()
-    gene_name = gene_info["gene_ensg"].copy()
+    gene_ensg = sorted(list(gene_info["gene_ensg"].copy()))
+    gene_id = sorted(list(gene_info["gene_ensg"].copy()))
+    gene_name = sorted(list(gene_info["gene_ensg"].copy()))
     
     # read z-score file
     logging.info("Read in z-score files")
@@ -234,7 +234,6 @@ def run(args):
         if np.allclose(cov_gene,cov_gene.T):
             # GBJ
             # convert the python object to r object
-            cov_gene = cov_gene.round(8)
             r_zscore_gene = r.matrix(zscore_gene)
             r_cov_gene = r.matrix(cov_gene, nrow = cov_gene.shape[0])
             # run the test            
@@ -260,23 +259,23 @@ if __name__ == "__main__":
 
     parser.add_argument("--weight_db",
                         help="name of weight db in data folder",
-                        default="/ysm-gpfs/home/zy92/scratch60/database_tissue/")
+                        default="/Users/jerome/Projects/UTMOST/database/weight_db/")
 
     parser.add_argument("--output_dir",
                         help="the output directory",
-                        default="/ysm-gpfs/home/zy92/scratch60/test_database/outcome/")
+                        default="/Users/jerome/Projects/UTMOST/results/")
     
     parser.add_argument("--cov_dir",
                         help="the covariance directory",
-                        default="/ysm-gpfs/home/zy92/project/metaxcan/MetaXcan/software/covariance/results5")
+                        default="/Users/jerome/Projects/UTMOST/database/cov/1226/")
 
     parser.add_argument("--input_folder",
                         help="name of folder containing summary data",
-                        default="/ysm-gpfs/pi/zhao/ml2376/association_v3/AD/single_mask")
+                        default="/Users/jerome/Projects/UTMOST/database/mask/AD/")
     
     parser.add_argument("--gene_info",
                         help="name of folder containing gene list",
-                        default="/ysm-gpfs/home/zy92/project/metaxcan/createdb/genelist/gene_info.txt")
+                        default="/Users/jerome/Projects/UTMOST/database/gene_info/gene_info.txt")
     
     parser.add_argument("--start_gene_index",
                         help="index of the starting gene",
