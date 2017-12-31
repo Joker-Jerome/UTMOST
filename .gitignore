@@ -10,7 +10,9 @@ build*
 slurm*
 submit*
 .jupyter
-
+test*
+*.ipynb
+.ipynb*
 _prof
 _scripts
 _test
