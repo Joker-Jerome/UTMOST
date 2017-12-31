@@ -99,7 +99,7 @@ class WeightDB(object):
             else:
                 results = self.cursor.execute("SELECT gene, genename, `n.snps.in.model`, `pred.perf.R2`, `pred.perf.pval`, `pred.perf.qval` FROM extra WHERE gene = ?;", (gene_key,))
         except sqlite3.OperationalError as e:
-            print str(e)
+            print(str(e))
             raise Exceptions.ReportableException("Could not read input tissue database. Please try updating the tissue model files.")
         except Exception as e:
             raise e
