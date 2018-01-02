@@ -119,9 +119,9 @@ def run(args):
     importr("GBJ")
     
     P = nend - nstart + 1
-    gene_ensg = gene_info["gene_ensg"].copy()
-    gene_id = gene_info["gene_ensg"].copy()
-    gene_name = gene_info["gene_ensg"].copy()
+    gene_ensg = list(gene_info["gene_ensg"].copy())
+    gene_id = list(gene_info["gene_ensg"].copy())
+    gene_name = list(gene_info["gene_ensg"].copy())
     
     # read z-score file
     logging.info("Read in z-score files")
@@ -148,7 +148,8 @@ def run(args):
     #directory of db
     os.chdir(db_dir) 
     # initialize the outcome matrix
-    outcome = pd.DataFrame(np.zeros(shape =(P,48)))
+    #outcome = pd.DataFrame(np.zeros(shape =(P,48)))
+    outcome = pd.DataFrame(np.full((P,48), np.nan))
     outcome.loc[:,0] = gene_id[(nstart-1):nend]
     outcome.loc[:,1] = gene_name[(nstart-1):nend]
     outcome = outcome.rename(columns={0:"gene_id",1:"gene_name"})
@@ -247,7 +248,7 @@ def run(args):
     # output the results
     os.chdir(out_dir)
     filename = output_name + "_" + str(nstart) + "_" + str(nend) + ".txt"
-    outcome.to_csv(filename, header=None, index=None, sep='\t', mode='w')
+    outcome.to_csv(filename, header=None, index=None, sep='\t', mode='w', na_rep='NA')
     
 
 if __name__ == "__main__":
@@ -268,7 +269,7 @@ if __name__ == "__main__":
     
     parser.add_argument("--cov_dir",
                         help="the covariance directory",
-                        default="/ysm-gpfs/home/zy92/project/metaxcan/MetaXcan/software/covariance/results5")
+                        default="/ysm-gpfs/home/zy92/project/metaxcan/MetaXcan/software/covariance/1226")
 
     parser.add_argument("--input_folder",
                         help="name of folder containing summary data",
