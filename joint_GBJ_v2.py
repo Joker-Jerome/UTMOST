@@ -208,7 +208,7 @@ def run(args):
             if sum(index > -1) > 0:
                 weights1[indi,i] = tmp_weights[index > -1]
         
-        # weights2: matrix of sqtl tissues (each intron is regarded as a seperate tissue)
+        # weights2: matrix of sqtl tissues (each intron is regarded as a separate tissue)
         weights2 = np.empty((M, 0))
         intron_name = {}
         for i in range(len(indi2)):
@@ -227,6 +227,7 @@ def run(args):
                 for j in range(L):
                     sql_q = 'select * from weights where gene = "' + intron_name[i][j] + '"'
                     tmp_query = cur.execute(sql_q).fetchall()
+                    # extract the rsid for certain intron
                     rsid_in_db = list(map(lambda x: str(x[0]), tmp_query))
                     #rsid_in_db = map(lambda x: str(x[0]), tmp_query)
                     index = match_list(rsid_in_db, snp_rsid)
@@ -234,7 +235,7 @@ def run(args):
                     tmp_weights = np.array(list(map(lambda x: str(x[2]), tmp_query)))
                     # extract the weight
                     if sum(index > -1) > 0:
-                        weights[indi,i] = tmp_weights[index > -1]
+                        weights[indi,j] = tmp_weights[index > -1]
             weights2 = np.hstack((weights2, weights))
         
         weights_f = np.hstack((weights1, weights2))
