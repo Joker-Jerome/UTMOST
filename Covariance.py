@@ -76,7 +76,7 @@ class ProcessWeightDB(object):
         
         # list all the databases in the path
         for file in sorted(os.listdir(self.db_path)):
-            if file.endswith(".db"):
+            if file.endswith(".db") and not file.endswith("sqtl.db"):
                 self.db_file_list.append(file)
         
         # load the database and build the separate db entry logic
