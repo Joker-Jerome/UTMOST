@@ -31,7 +31,9 @@ The software is developed and tested in Linux and Mac OS environments.
 
 ## Usage
 
-### Covariance Calculation
+All of these functions take different number of command line parameters. Run them with --help or -h option to see the options.
+
+### Joint Covariance Calculation
 
 * usage: Covariance.py [-h] 
 
