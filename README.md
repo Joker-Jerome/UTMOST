@@ -136,16 +136,10 @@ The example command parameters:
 **7. Calculate the joint tissue covariance**
 ```bash
 python2 ./joint_tissue_covariance.py \
---model_db_path data/tissue_database \
---covariance data/covariance.txt.gz \
---gwas_folder data/GWAS \
---gwas_file_pattern ".*gz" \
---snp_column SNP \
---effect_allele_column A1 \
---non_effect_allele_column A2 \
---beta_column BETA \
---pvalue_column P \
---output_file results/single_tissue_test_results.csv
+--weight_db /ysm-gpfs/home/zy92/project/UTMOST/database/weigth_db_v2/ \
+--input_folder /ysm-gpfs/home/zy92/project/UTMOST/database/dosage/ \
+--covariance_output /ysm-gpfs/home/zy92/project/UTMOST/intermediate/
+
 ```
 
 The example command parameters:
@@ -176,7 +170,15 @@ The example command parameters:
   
 
 8. Joint GBJ test
-
+```bash
+$ python2 joint_GBJ_test.py \
+--weight_db /ysm-gpfs/home/zy92/project/UTMOST/database/weigth_db_v2/ \
+--output_dir /ysm-gpfs/home/zy92/project/UTMOST/outcome/ \
+--cov_dir /ysm-gpfs/home/zy92/project/UTMOST/intermediate/ \
+--input_folder /ysm-gpfs/home/zy92/project/UTMOST/database/mask/AD/ \
+--gene_info /ysm-gpfs/home/zy92/project/UTMOST/intermediate/gene_info.txt \
+--output_name test
+```
 
 The example command parameters:
 
