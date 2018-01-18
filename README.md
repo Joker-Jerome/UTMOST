@@ -169,7 +169,7 @@ $ git clone https://github.com/Joker-Jerome/UTMOST
 $ cd ./UTMOST
 ```
 
-3. Download sample data[sample data](dl.dropboxusercontent.com/s/pwk47cyiw60kkod/data.zip?dl=0):
+3. Download sample data [sample data](dl.dropboxusercontent.com/s/pwk47cyiw60kkod/data.zip?dl=0):
 ```bash
 # You can click on the link above or run the following
 $ wget dl.dropboxusercontent.com/s/pwk47cyiw60kkod/data.zip?dl=0
@@ -187,13 +187,13 @@ python2 ./single_tissue_covariance.py \
 --weight_db data/DGN-WB_0.5.db \
 --input_folder data/GWAS/ \
 --covariance_output data/covariance.txt.gz
+```
+The example command parameters:
 
 * *--model_db_path* Path to tissue transriptome model.
 * *--input_folder* Folder containing GWAS summary statistics data.
 * *--covariance_output* Path where covariance will be saved to.
 
-
-```
 6. Run the single tissue association test
 ```bash
 python2 ./single_tissue_association_test.py \
