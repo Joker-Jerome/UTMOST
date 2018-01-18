@@ -38,29 +38,29 @@ The following example assumes that you have **python 2.7**, **numpy**, **pandas*
 All of these functions take different number of command line parameters. Run them with --help or -h option to see the options.
 
 
-1. Clone the UTMOST repository 
+**1. Clone the UTMOST repository**
 ```bash
 $ git clone https://github.com/Joker-Jerome/UTMOST
 ```
 
-2. Go to the software directory
+**2. Go to the software directory**
 ```bash
 $ cd ./UTMOST
 ```
 
-3. Download sample data [sample data](dl.dropboxusercontent.com/s/pwk47cyiw60kkod/data.zip):
+**3. Download sample data [sample data](dl.dropboxusercontent.com/s/pwk47cyiw60kkod/data.zip)**
 ```bash
 # You can click on the link above or run the following
 $ wget dl.dropboxusercontent.com/s/pwk47cyiw60kkod/data.zip?dl=0
 ```
 
-4. Unzip the data.zip file
+**4. Unzip the data.zip file**
 ```bash
 $ unzip data.zip
 ```
 The data folder will include a **Model Database**, a **GWAS summary statistics**.
 
-5. Calculate the single tissue covariance
+**5. Calculate the single tissue covariance**
 ```bash
 python2 ./single_tissue_covariance.py \
 --weight_db data/DGN-WB_0.5.db \
@@ -73,7 +73,9 @@ The example command parameters:
 * *--input_folder* Folder containing GWAS summary statistics data.
 * *--covariance_output* Path where covariance will be saved to.
 
-6. Run the single tissue association test
+
+
+**6. Run the single tissue association test**
 ```bash
 python2 ./single_tissue_association_test.py \
 --model_db_path data/DGN-WB_0.5.db \
@@ -129,7 +131,9 @@ The example command parameters:
 
   Path where results will be saved to.
 
-7. Calculate the joint tissue covariance
+
+
+**7. Calculate the joint tissue covariance**
 ```bash
 python2 ./joint_tissue_covariance.py \
 --model_db_path data/tissue_database \
@@ -144,7 +148,7 @@ python2 ./joint_tissue_covariance.py \
 --output_file results/single_tissue_test_results.csv
 ```
 
-Build covariances from dosage data and weights database.
+The example command parameters:
 
 * *--verbosity* 
   
@@ -172,7 +176,10 @@ Build covariances from dosage data and weights database.
   
 
 8. Joint GBJ test
-  
+
+
+The example command parameters:
+
 * *--verbosity* 
 
   Log verbosity level. 1 means everything will be logged. 10 means high level messages will be logged.
