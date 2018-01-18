@@ -169,7 +169,7 @@ $ git clone https://github.com/Joker-Jerome/UTMOST
 $ cd ./UTMOST
 ```
 
-3. Download sample data [sample data](dl.dropboxusercontent.com/s/pwk47cyiw60kkod/data.zip?dl=0):
+3. Download sample data [sample data](dl.dropboxusercontent.com/s/pwk47cyiw60kkod/data.zip):
 ```bash
 # You can click on the link above or run the following
 $ wget dl.dropboxusercontent.com/s/pwk47cyiw60kkod/data.zip?dl=0
