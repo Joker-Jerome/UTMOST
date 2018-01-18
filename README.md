@@ -144,7 +144,7 @@ The example command parameters:
 **7. Calculate the joint tissue covariance**
 ```bash
 python2 ./joint_tissue_covariance.py \
---weight_db /ysm-gpfs/home/zy92/project/UTMOST/database/weigth_db_v2/ \
+--weight_db /ysm-gpfs/home/zy92/project/UTMOST/database/weight_db_v2/ \
 --input_folder /ysm-gpfs/home/zy92/project/UTMOST/database/dosage/ \
 --covariance_output /ysm-gpfs/home/zy92/project/UTMOST/intermediate/
 
@@ -180,7 +180,7 @@ The example command parameters:
 8. Joint GBJ test
 ```bash
 $ python2 joint_GBJ_test.py \
---weight_db /ysm-gpfs/home/zy92/project/UTMOST/database/weigth_db_v2/ \
+--weight_db /ysm-gpfs/home/zy92/project/UTMOST/database/weight_db_v2/ \
 --output_dir /ysm-gpfs/home/zy92/project/UTMOST/outcome/ \
 --cov_dir /ysm-gpfs/home/zy92/project/UTMOST/intermediate/ \
 --input_folder /ysm-gpfs/home/zy92/project/UTMOST/database/mask/AD/ \
