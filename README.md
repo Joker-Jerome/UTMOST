@@ -20,22 +20,23 @@ The software is developed and tested in Linux and Mac OS environments.
 
 ## Project Layout
 
-* Covariance.py
+* single_tissue_covariance.py
 
-* joint_GBJ.py
+* single_tissue_association_test.py
+
+* joint_tissue_covariance.py
+
+* joint_GBJ_test.py
 
 * test_tool
 
 * metax module
-
-
-## Usage
-
-All of these functions take different number of command line parameters. Run them with --help or -h option to see the options.
-
                         
 ## Example and Usage
-The following example assumes that you have **python 2.7**, **numpy**, **pandas**, **scipy**, **rpy2**, and **R** installed.
+
+The following example assumes that you have **python 2.7**, **numpy**, **pandas**, **scipy**, **rpy2**, and **R** installed. 
+All of these functions take different number of command line parameters. Run them with --help or -h option to see the options.
+
 
 1. Clone the UTMOST repository 
 ```bash
@@ -89,24 +90,44 @@ python2 ./single_tissue_association_test.py \
 The example command parameters:
 
 * *--model_db_path* 
+
   Path to tissue transriptome model.
+  
 * *--covariance* 
+
   Path to file containing covariance information.
+  
 * *--gwas_folder* 
+
   Folder containing GWAS summary statistics data.
+  
 * *--gwas_file_pattern* 
+
   The file patten of gwas file.
+  
 * *--snp_column* 
+
   Argument with the name of the column containing the RSIDs.
+  
 * *--effect_allele_column* 
+
   Argument with the name of the column containing the effect allele.
+  
 * *--non_effect_allele_column* 
+
   Argument with the name of the column containing the non effect allele.
+  
 * *--beta_column* 
+
   The column containing -phenotype beta data for each SNP- in the input GWAS files.
+  
 * *--pvalue_column* 
+
   The column containing -PValue for each SNP- in the input GWAS files.
-* *--output_file* Path where results will be saved to.
+  
+* *--output_file* 
+
+  Path where results will be saved to.
 
 7. Calculate the joint tissue covariance
 ```bash
@@ -153,21 +174,37 @@ Build covariances from dosage data and weights database.
 8. Joint GBJ test
   
 * *--verbosity* 
+
   Log verbosity level. 1 means everything will be logged. 10 means high level messages will be logged.
+  
 * *--weight_db*
+
   Name of weight db in data folder.
+  
 * *--input_folder*
+
   Name of folder containing summary data.
+  
 * *--cov_dir* 
+
   Path where covariance results are.
+  
 * *--output_dir* 
+
   Path where results will be saved to.
+  
 * *--gene_info*
+
   Name of file containing the gene list.
+  
 * *--start_gene_index*
+
   Index of the starting gene.
-* *--end_gene_index END_GENE_INDEX
+  
+* *--end_gene_index*
+
   Index of the ending gene
+  
 ## Acknowledgement
 
 ## Reference
