@@ -157,7 +157,7 @@ optional arguments:
                         Index of the ending gene
                         
 ## Example and Usage
-The following example assumes that you have **python 2.7**, **numpy**, **rpy2**, **scipy** and **R** installed.
+The following example assumes that you have **python 2.7**, **numpy**, **pandas**, **scipy**, **rpy2**, and **R** installed.
 
 1. Clone the UTMOST repository 
 ```bash
