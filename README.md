@@ -51,7 +51,7 @@ $ cd ./UTMOST
 **3. Download sample data [sample data](dl.dropboxusercontent.com/s/pwk47cyiw60kkod/data.zip)**
 ```bash
 # You can click on the link above or run the following
-$ wget dl.dropboxusercontent.com/s/pwk47cyiw60kkod/data.zip?dl=0
+$ wget dl.dropboxusercontent.com/s/pwk47cyiw60kkod/data.zip
 ```
 
 **4. Unzip the data.zip file**
@@ -69,9 +69,17 @@ python2 ./single_tissue_covariance.py \
 ```
 The example command parameters:
 
-* *--model_db_path* Path to tissue transriptome model.
-* *--input_folder* Folder containing GWAS summary statistics data.
-* *--covariance_output* Path where covariance will be saved to.
+* *--model_db_path* 
+
+  Path to tissue transriptome model.
+  
+* *--input_folder* 
+
+  Folder containing GWAS summary statistics data.
+  
+* *--covariance_output* 
+
+  Path where covariance will be saved to.
 
 
 
