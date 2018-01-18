@@ -126,17 +126,29 @@ python2 ./joint_tissue_covariance.py \
 Build covariances from dosage data and weights database.
 
 * *--verbosity* 
+  
   Log verbosity level. 1 means everything will be logged. 10 means high level messages will be logged.
+  
 * *--weight_db*
+
   Name of weight db in data folder.
+  
 * *--input_folder*
+
   Name of folder containing dosage data.
+  
 * *--covariance_output* 
+
   Path where covariance results will be saved to.
+  
 * *--min_maf_filter*
+
   Filter snps according to this maf.
+  
 * *--max_maf_filter*
+
   Filter snps according to this maf.
+  
 
 8. Joint GBJ test
   
