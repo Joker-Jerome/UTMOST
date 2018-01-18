@@ -1,6 +1,6 @@
 # UTMOST
 
-UTMOST is a tool to perform integrative genetic studies. 
+UTMOST (Unified Test for MOlecular SignaTures) is a principled method to perform cross-tissue expression imputation and gene-level association analysis.
 
 ## Prerequisites
 
