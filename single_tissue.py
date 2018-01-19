@@ -54,7 +54,7 @@ class ProcessWeightDB(object):
             self.covariance_output = path    
         self.input_format = args.input_format
         self.store_pickle_only = args.store_pickle_only
-        self.gene_info = args.gene_info
+        
         # data entry logic
         self.found_genes_for_covariance = {}
         self.found_genes_for_correlation = {}
@@ -75,9 +75,7 @@ class ProcessWeightDB(object):
 
         
         # list all the databases in the path
-        for file in sorted(os.listdir(self.db_path)):
-            if file.endswith(".db") and not file.endswith("sqtl.db"):
-                self.db_file_list.append(file)
+        self.db_file_list.append(self.db_path)
         
         # load the database and build the separate db entry logic
         logging.info("Loading Weights")
@@ -89,24 +87,7 @@ class ProcessWeightDB(object):
             logging.info("Building file" + str(count))
         
         # merge the info from different databases
-        tmp_logic_object = self.db_logic_dict[list(self.db_logic_dict.keys())[0]]
-        count = 0
-        for db_logic in self.db_logic_dict.values():
-            count += 1
-            logging.info("Scanning file" + str(count))
-            # update the weights_by_gene  
-            count_gene = 0
-            num_gene = len(db_logic.weights_by_gene.keys())
-            for gene in db_logic.weights_by_gene.keys():
-                count_gene += 1 
-                if count_gene % 150 == 0:
-                    logging.info("Percentage of genes processed  " + str(round(float(count_gene)/float(num_gene),2)*100))
-                if gene in tmp_logic_object.weights_by_gene.keys():
-                    for rsid in db_logic.weights_by_gene[gene].keys():
-                        if rsid not in tmp_logic_object.weights_by_gene[gene].keys():
-                            tmp_logic_object.weights_by_gene[gene][rsid] = db_logic.weights_by_gene[gene][rsid]              
-                else:
-                    tmp_logic_object.weights_by_gene[gene] = db_logic.weights_by_gene[gene]             
+        tmp_logic_object = self.db_logic_dict[list(self.db_logic_dict.keys())[0]]          
                 
         # summary of gene count and snp count
         logging.info("Total Genes:" + str(len(tmp_logic_object.weights_by_gene.keys())))
@@ -255,8 +236,8 @@ class ProcessWeightDB(object):
     
     # build the covariance file
     def saveGeneInfo(self, weight_db_logic):
-        gene_list = sorted(list(weight_db_logic.weights_by_gene.keys()))
-        with open(self.gene_info,"w") as fo:
+        gene_list = list(weight_db_logic.weights_by_gene.keys())
+        with open("gene_info.txt","w") as fo:
             fo.write("gene_ensg" + "\n")
             for item in gene_list:
                 fo.write(item + "\n")       
@@ -271,20 +252,17 @@ if __name__ == "__main__":
                         default = "10")
 
     parser.add_argument("--weight_db",
-                        help="name of weight db folder",
+                        help="name of weight db",
                         default=None)
 
     parser.add_argument("--input_folder",
                         help="name of folder containing dosage data",
-                        default=None)
+                        default="intermediate/TGF_EUR")
 
     parser.add_argument("--covariance_output",
                         help="Name of file to dump covariance results in. Defaults to './intermediate/cov/' + file name prefix from '--weight_db' argument",
                         default="./intermediate/cov/")
 
-    parser.add_argument("--gene_info",
-                        help="name of folder containing gene list",
-                        default="/ysm-gpfs/home/zy92/project/metaxcan/createdb/genelist/gene_info.txt")
     parser.add_argument('--input_format',
                    help='Input dosage files format. Valid options are: IMPUTE, PrediXcan',
                    default=Formats.PrediXcan)

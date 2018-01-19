@@ -1,24 +1,8 @@
-#!/usr/local/bin/python2.7
-# encoding: utf-8
-'''
-Covariance Calculation-- 
-
-
-It defines classes_and_methods
-
-@author:     heroico, zhao_lab 
-
-@copyright:  2017 organization_name. All rights reserved.
-
-@license:    license
-
-@contact:    zhao_lab at Yale
-@deffield    updated: Updated
-'''
+#!/usr/bin/env python
+__author__ = 'heroico'
 
 import logging
-import numpy as np
-import pickle
+import numpy
 import os
 import gzip
 import ntpath
@@ -34,85 +18,54 @@ def pathLeaf(path):
     head, tail = ntpath.split(path)
     return tail or ntpath.basename(head)
 
-def mergeTwoDicts(x, y):
-    z = x.copy()  
-    z.update(y)   
-    return z
-
 class ProcessWeightDB(object):
     def __init__(self, args):
-        # input and output 
         self.weight_db = pathLeaf(args.weight_db)
         self.db_path = args.weight_db
         self.data_folder = args.input_folder
+        self.correlation_output = args.correlation_output
         self.covariance_output = args.covariance_output
         if args.covariance_output is None:
             comp = os.path.splitext(self.weight_db)[0]
             name = comp + ".cov.txt.gz"
             path = os.path.join("intermediate", "cov")
             path = os.path.join(path, name)
-            self.covariance_output = path    
+            self.covariance_output = path
+
         self.input_format = args.input_format
-        self.store_pickle_only = args.store_pickle_only
-        
-        # data entry logic
+
         self.found_genes_for_covariance = {}
         self.found_genes_for_correlation = {}
-        self.db_logic_dict = {}
-        self.gene_rsid_dict = {}
-        self.db_file_list = []
-        
-        # preprocessing filter
+
         self.min_maf_filter = float(args.min_maf_filter) if args.min_maf_filter else None
         self.max_maf_filter = float(args.max_maf_filter) if args.max_maf_filter else None
+
         self.max_snps_in_gene = int(args.max_snps_in_gene) if args.max_snps_in_gene else None
 
     def run(self):
-        # run the main function
-        if not self.covariance_output:
-            logging.info("Provide --covariance_output or both")
+        if not self.correlation_output and not self.covariance_output:
+            logging.info("Provide --correlation_output or --covariance_output or both")
             return
 
-        
-        # list all the databases in the path
-        self.db_file_list.append(self.db_path)
-        
-        # load the database and build the separate db entry logic
         logging.info("Loading Weights")
-        count = 0      
-        for file in self.db_file_list:
-            count += 1
-            filename = self.db_path + file
-            self.db_logic_dict[file] = WeightDBUtilities.WeightDBEntryLogic(filename)
-            logging.info("Building file" + str(count))
-        
-        # merge the info from different databases
-        tmp_logic_object = self.db_logic_dict[list(self.db_logic_dict.keys())[0]]          
-                
-        # summary of gene count and snp count
-        logging.info("Total Genes:" + str(len(tmp_logic_object.weights_by_gene.keys())))
-        rsid_count = 0
-        for gene in tmp_logic_object.weights_by_gene.keys():
-            rsid_count += len(tmp_logic_object.weights_by_gene[gene].keys())
-        logging.info("Total SNPs:" + str(rsid_count))
-    
-        # store the pickle file
-        pickle_out = open("db_weight_logic.pickle","wb")
-        pickle.dump(tmp_logic_object,pickle_out)
-        pickle_out.close()   
-        
-        # store the gene info
-        self.saveGeneInfo(tmp_logic_object)
-            
-        # whether calculate the covariance directly
-        # store the database entry logic as pickle file
-        if not self.store_pickle_only:
-            self.buildFiles(tmp_logic_object)
+        weight_db_logic = WeightDBUtilities.WeightDBEntryLogic(self.db_path)
+
+        logging.info("Building files")
+        self.buildFiles(weight_db_logic)
 
         logging.info("Ran successfully")
-    
-    # build the covariance file
+
     def buildFiles(self, weight_db_logic):
+        do_correlations = self.correlation_output is not None
+        if do_correlations:
+            if os.path.exists(self.correlation_output):
+                logging.info("%s already exists, delete it if you want it figured out again", self.correlation_output)
+                do_correlations = False
+            else:
+                correlation_dir = os.path.dirname(self.correlation_output)
+                if not os.path.exists(correlation_dir):
+                    os.makedirs(correlation_dir)
+                self.writeFileHeader(self.correlation_output)
 
         do_covariances = self.covariance_output is not None
         if do_covariances:
@@ -125,14 +78,21 @@ class ProcessWeightDB(object):
                     os.makedirs(covariance_dir)
                 self.writeFileHeader(self.covariance_output)
 
-        if not do_covariances:
+        if not do_covariances and not do_correlations:
             return
-        # load the dosage data from dosage folder
+
         names = Utilities.dosageNamesFromFolder(self.data_folder)
         for name in names:
             snps, snps_by_rsid = self.getSNPS(name, weight_db_logic)
+            if do_correlations:
+                self.addToCorrelationFile(weight_db_logic, name, snps, snps_by_rsid)
+
             if do_covariances:
                 self.addToCovarianceFile(weight_db_logic, name, snps, snps_by_rsid)
+
+    def writeFileHeader(self,path):
+        with gzip.open(path, "ab") as file:
+            file.write("GENE RSID1 RSID2 VALUE\n")
 
     def getSNPS(self, name, weight_db_logic):
         dosageLoader = None
@@ -150,7 +110,7 @@ class ProcessWeightDB(object):
 
     def addToCovarianceFile(self, weight_db_logic, name, snps, snps_by_rsid):
         logging.info("Adding to covariance for %s-%s", name, self.weight_db)
-        # get the total genes in that weight_db_logic
+
         genes = weight_db_logic.weights_by_gene.keys()
         total_genes = len(genes)
         last_reported_percent = 0
@@ -158,19 +118,28 @@ class ProcessWeightDB(object):
         for gene in genes:
             processed += 1
             percent = int(processed*100.0 / total_genes)
-            print(gene)
-            print(len(weight_db_logic.weights_by_gene[gene].keys()))
-            if percent == last_reported_percent+1:
+            if percent == last_reported_percent+10:
                 logging.info("%d percent genes processed", percent)
                 last_reported_percent = percent
 
-            self.buildCovarianceEntries(name, gene, weight_db_logic, snps_by_rsid)
+            entries = self.buildCovarianceEntries(name, gene, weight_db_logic, snps_by_rsid)
+
+            if len(entries) == 0:
+                logging.log(6,"Gene %s has no snps in current file", gene)
+                continue
+
+            self.addToFile(self.covariance_output, gene, entries)
+
+    def addToFile(self, path, gene, entries):
+        with gzip.open(path, "ab") as file:
+            for entry in entries:
+                line = " ".join([gene, entry[0], entry[1], entry[2]])+"\n"
+                file.write(line)
 
     def buildCovarianceEntries(self, name, gene, weight_db_logic, snps_by_rsid):
-        # get a dict of specific gene
         weights_in_gene = weight_db_logic.weights_by_gene[gene]
         rsids_from_genes = weights_in_gene.keys()
-        
+
         #gather as much data as we can work on
         related_rsids, related_data = self.buildRelatedData(rsids_from_genes, snps_by_rsid, weights_in_gene)
 
@@ -180,24 +149,24 @@ class ProcessWeightDB(object):
         self.updateFoundCovariance(gene, name)
 
         #covariance matrix of related SNP's data
-        array = np.array(related_data)
-        cov = np.cov(array)
-        self.total_gene += 1;
-        logging.info("GENE:" + str(self.total_gene))
-        
-        #save the covariance matrix
-        # write the cov matrix
-        cov_filename = self.covariance_output + "/" + gene + ".cov"
-        with open(cov_filename,"w") as fo:
-            if cov.shape == ():
-                fo.write(str(cov) + "\n")
-            else:  
-                np.savetxt(fo, cov)
-            
-        snp_filename = self.covariance_output + "/" + gene + ".snplist"
-        with open(snp_filename,"w") as fo:
-            for snp in related_rsids:
-                fo.write(snp + "\n")
+        array = numpy.array(related_data)
+        cov = numpy.cov(array)
+
+        #translate into sql entries
+        entries = self.buildMatrixOutputEntries(cov, rsids_from_genes, related_rsids, snps_by_rsid)
+        if not len(entries):
+            raise NameError("Couldn not build covariance entries for (%s,%s)" %(name,gene))
+        return entries
+
+    def updateFoundCovariance(self, gene, name):
+        found = None
+        if gene in self.found_genes_for_covariance:
+            found = self.found_genes_for_covariance[gene]
+            logging.info("Gene %s found again for %s", gene, name)
+        else:
+            found = []
+            self.found_genes_for_covariance[gene] = found
+        found.append(name)
 
     def buildRelatedData(self, rsids_from_genes, snps_by_rsid, weights_in_gene):
         related_rsids = []
@@ -222,7 +191,7 @@ class ProcessWeightDB(object):
             if self.max_maf_filter and self.max_maf_filter < freq:
                 logging.log(6, "related rsid %s  above max maf: %s", rsid, freq)
                 continue
-            # dosage data
+
             data = related_snp.data
             weight = weights_in_gene[rsid]
             if weight.ref_allele == related_snp.eff_allele and\
@@ -233,40 +202,130 @@ class ProcessWeightDB(object):
             related_data.append(data)
             related_rsids.append(rsid)
         return related_rsids, related_data
-    
-    # build the covariance file
-    def saveGeneInfo(self, weight_db_logic):
-        gene_list = list(weight_db_logic.weights_by_gene.keys())
-        with open("gene_info.txt","w") as fo:
-            fo.write("gene_ensg" + "\n")
-            for item in gene_list:
-                fo.write(item + "\n")       
+
+    def buildMatrixOutputEntries(self, matrix, rsids_from_genes, related_rsids, snps_by_rsid):
+        entries = []
+
+        #special case: we might have a single rsid!
+        if matrix.ndim == 0:
+            c = str(float(matrix))
+            r = rsids_from_genes[0]
+            entries.append((r,r,c))
+            return entries
+
+        for i in xrange(0, len(rsids_from_genes)):
+            rsid_i = rsids_from_genes[i]
+            related_i = -1
+            if rsid_i in related_rsids:
+                related_i = related_rsids.index(rsid_i)
+
+            for j in xrange(0, len(rsids_from_genes)):
+                rsid_j = rsids_from_genes[j]
+
+                related_j = -1
+                if rsid_j in related_rsids:
+                    related_j = related_rsids.index(rsid_j)
+
+                value = "NA"
+                if related_i > -1 and related_j > -1:
+                    value = str(matrix[related_i][related_j])
+
+                if i == j:
+                    entries.append((rsid_i, rsid_i, value))
+                else:
+                    if value == "NA":
+                        if rsid_i < rsid_j:
+                            entries.append((rsid_i, rsid_j, value))
+                    else:
+                        snp_i = snps_by_rsid[rsid_i]
+                        snp_j = snps_by_rsid[rsid_j]
+
+                        if snp_i.position < snp_j.position:
+                            entries.append((rsid_i, rsid_j, value))
+        return entries
+
+    def addToCorrelationFile(self, weight_db_logic, name, snps, snps_by_rsid):
+        logging.info("Building correlation database for %s-%s", name, self.weight_db)
+        genes = weight_db_logic.weights_by_gene.keys()
+        total_genes = len(genes)
+        last_reported_percent = 0
+        processed = 0
+        for gene in genes:
+            processed += 1
+            percent = int(processed*100.0 / total_genes)
+            if percent == last_reported_percent+10:
+                logging.info("%d percent genes processed", percent)
+                last_reported_percent = percent
+
+            entries = self.buildCorrelationEntries(name, gene, weight_db_logic, snps_by_rsid)
+
+            if len(entries) == 0:
+                logging.log(6,"Gene %s has no snps in current file", gene)
+                continue
+
+            self.addToFile(self.correlation_output, gene, entries)
+
+    def buildCorrelationEntries(self, name, gene, weight_db_logic, snps_by_rsid):
+        weights_in_gene = weight_db_logic.weights_by_gene[gene]
+        rsids_from_genes = weights_in_gene.keys()
+
+        #gather as much data as we can work on
+        related_rsids, related_data = self.buildRelatedData(rsids_from_genes, snps_by_rsid, weights_in_gene)
+
+        if len(related_rsids) == 0:
+            return []
+
+        self.updateFoundCorrelation(gene, name)
+
+        #correlation matrix of related SNP's data
+        array = numpy.array(related_data)
+        cor = numpy.corrcoef(array)
+
+        #translate into sql entries
+        entries = self.buildMatrixOutputEntries(cor, rsids_from_genes, related_rsids, snps_by_rsid)
+        if not len(entries):
+            raise NameError("Couldn not build correlation entries for (%s,%s)" %(name,gene))
+        return entries
+
+    def updateFoundCorrelation(self, gene, name):
+        found = None
+        if gene in self.found_genes_for_correlation:
+            found = self.found_genes_for_correlation[gene]
+            logging.info("Gene %s found again for %s", gene, name)
+        else:
+            found = []
+            self.found_genes_for_correlation[gene] = found
+        found.append(name)
 
 
 if __name__ == "__main__":
     import argparse
-    parser = argparse.ArgumentParser(description='Build covariances from dosage data and weights database.')
+    parser = argparse.ArgumentParser(description='Build correlations and/or covariances from PHASE3 data and weights database.')
 
     parser.add_argument("--verbosity",
                         help="Log verbosity level. 1 is everything being logged. 10 is only high level messages, above 10 will hardly log anything",
                         default = "10")
 
     parser.add_argument("--weight_db",
-                        help="name of weight db",
-                        default=None)
+                        help="name of weight db in data folder",
+                        default="data/DGN-WB_0.5.db")
 
     parser.add_argument("--input_folder",
-                        help="name of folder containing dosage data",
+                        help="name of folder containing PHASE 3 data",
                         default="intermediate/TGF_EUR")
 
+    parser.add_argument("--correlation_output",
+                        help="Name of file to dump correlation results in.",
+                        default=None)
+                        #default="intermediate/1000GP_Phase3_chr_cor_dgnwb_cor.txt.gz")
+
     parser.add_argument("--covariance_output",
-                        help="Name of file to dump covariance results in. Defaults to './intermediate/cov/' + file name prefix from '--weight_db' argument",
-                        default="./intermediate/cov/")
+                        help="Name of file to dump covariance results in. Defaults to 'intermediate/cov/' + file name prefix from '--weight_db' argument",
+                        default=None)
 
     parser.add_argument('--input_format',
                    help='Input dosage files format. Valid options are: IMPUTE, PrediXcan',
                    default=Formats.PrediXcan)
-    
 
     parser.add_argument('--min_maf_filter',
                    help="Filter snps according to this maf",
@@ -280,19 +339,10 @@ if __name__ == "__main__":
                         help="Ignore any gene that has snps above this value",
                         type=int,
                         default=None)
-    
-    parser.add_argument("--store_pickle_only",
-                        help="Only store the database entry logic",
-                        type=int,
-                        default=0)
 
     args = parser.parse_args()
 
     Logging.configureLogging(int(args.verbosity))
-    
-    
-    work = ProcessWeightDB(args)
-    work.run()  
-    
-    
 
+    work = ProcessWeightDB(args)
+    work.run()
