@@ -223,5 +223,6 @@ The example command parameters:
   Index of the ending gene
   
 ## Acknowledgement
+Part of the code is modified from MetaXcan https://github.com/hakyimlab/MetaXcan. We thank them for sharing the code.
 
 ## Reference
