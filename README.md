@@ -181,7 +181,7 @@ The example command parameters:
 ```bash
 $ python2 joint_GBJ_test.py \
 --weight_db /YOUR_UTMOST_DIR/sample_data/weight_db_v2/ \
---output_dir /YOUR_UTMOST_DIR/outcome/ \
+--output_dir /YOUR_UTMOST_DIR/results/ \
 --cov_dir /YOUR_UTMOST_DIR/intermediate/ \
 --input_folder /YOUR_UTMOST_DIR/sample_data/mask/ \
 --gene_info /YOUR_UTMOST_DIR/intermediate/gene_info.txt \
