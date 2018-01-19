@@ -24,7 +24,7 @@ The software is developed and tested in Linux and Mac OS environments.
 
 * single_tissue_association_test.py
 
-* joint_tissue_covariance.py
+* joint_covariance.py
 
 * joint_GBJ_test.py
 
