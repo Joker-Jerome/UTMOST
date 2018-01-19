@@ -63,9 +63,9 @@ The data folder will include a **Model Database**, a **GWAS summary statistics**
 **5. Calculate the single tissue covariance**
 ```bash
 python2 ./single_tissue_covariance.py \
---weight_db data/DGN-WB_0.5.db \
---input_folder data/GWAS/ \
---covariance_output data/covariance.txt.gz
+--weight_db sample_data/DGN-WB_0.5.db \
+--input_folder sample_data/dosage/ \
+--covariance_output sample_data/covariance.txt.gz
 ```
 The example command parameters:
 
@@ -86,9 +86,9 @@ The example command parameters:
 **6. Run the single tissue association test**
 ```bash
 python2 ./single_tissue_association_test.py \
---model_db_path data/DGN-WB_0.5.db \
---covariance data/covariance.txt.gz \
---gwas_folder data/GWAS \
+--model_db_path sample_data/DGN-WB_0.5.db \
+--covariance sample_data/covariance.txt.gz \
+--gwas_folder sample_data/GWAS \
 --gwas_file_pattern ".*gz" \
 --snp_column SNP \
 --effect_allele_column A1 \
@@ -143,10 +143,10 @@ The example command parameters:
 
 **7. Calculate the joint tissue covariance**
 ```bash
-python2 ./joint_tissue_covariance.py \
---weight_db /ysm-gpfs/home/zy92/project/UTMOST/database/weight_db_v2/ \
---input_folder /ysm-gpfs/home/zy92/project/UTMOST/database/dosage/ \
---covariance_output /ysm-gpfs/home/zy92/project/UTMOST/intermediate/
+python2 ./joint_covariance.py \
+--weight_db /YOUR_UTMOST_DIR/sample_data/weight_db_v2/ \
+--input_folder /YOUR_UTMOST_DIR/sample_data/dosage/ \
+--covariance_output /YOUR_UTMOST_DIR/intermediate/
 
 ```
 
@@ -180,11 +180,11 @@ The example command parameters:
 8. Joint GBJ test
 ```bash
 $ python2 joint_GBJ_test.py \
---weight_db /ysm-gpfs/home/zy92/project/UTMOST/database/weight_db_v2/ \
---output_dir /ysm-gpfs/home/zy92/project/UTMOST/outcome/ \
---cov_dir /ysm-gpfs/home/zy92/project/UTMOST/intermediate/ \
---input_folder /ysm-gpfs/home/zy92/project/UTMOST/database/mask/AD/ \
---gene_info /ysm-gpfs/home/zy92/project/UTMOST/intermediate/gene_info.txt \
+--weight_db /YOUR_UTMOST_DIR/sample_data/weight_db_v2/ \
+--output_dir /YOUR_UTMOST_DIR/outcome/ \
+--cov_dir /YOUR_UTMOST_DIR/intermediate/ \
+--input_folder /YOUR_UTMOST_DIR/sample_data/mask/ \
+--gene_info /YOUR_UTMOST_DIR/intermediate/gene_info.txt \
 --output_name test
 ```
 
