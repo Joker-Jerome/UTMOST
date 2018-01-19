@@ -48,15 +48,15 @@ $ git clone https://github.com/Joker-Jerome/UTMOST
 $ cd ./UTMOST
 ```
 
-**3. Download sample data [sample data](dl.dropboxusercontent.com/s/pwk47cyiw60kkod/data.zip)**
+**3. Download sample data [sample data](dl.dropboxusercontent.com/s/eerk8o0nqr2uc2g/sample_data.zip)**
 ```bash
 # You can click on the link above or run the following
-$ wget dl.dropboxusercontent.com/s/pwk47cyiw60kkod/data.zip
+$ wget dl.dropboxusercontent.com/s/eerk8o0nqr2uc2g/sample_data.zip
 ```
 
 **4. Unzip the data.zip file**
 ```bash
-$ unzip data.zip
+$ unzip sample_data.zip
 ```
 The data folder will include a **Model Database**, a **GWAS summary statistics**.
 
