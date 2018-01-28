@@ -283,13 +283,18 @@ def run(args):
                         tmp_zscore_gene = np.nan
                     zscore_gene2 = np.append(zscore_gene2, tmp_zscore_gene)
         ##matrix of zscores for all eqtl and sqtl tissues (the same dimension with cov_gene matrix)
-        zscore_gene = np.concatenate((zscore_gene1,zscore_gene2))          
-                  
+        zscore_gene = np.concatenate((zscore_gene1,zscore_gene2))   
         #only keep tissues with prediction model for gene
         index = np.isnan(zscore_gene) == False
-        if sum(index) > 0:
+        if sum(index) > 1:
             zscore_gene = zscore_gene[index]
             cov_gene = cov_gene[index,:][:,index]
+        elif sum(index) == 1:
+            _tmp_index = np.argmax(np.isnan(zscore_gene) == False)
+            _tmp_zscore = zscore_gene[_tmp_index]
+            _tmp_pvalue = outcome.loc[k, _tmp_index+5]
+            outcome.loc[k, 2] = _tmp_zscore
+            outcome.loc[k, 3] = _tmp_pvalue
         else:
             # test cannot be done
             continue
@@ -306,7 +311,7 @@ def run(args):
             outcome.loc[k, 2] = GBJ_res.rx2("GBJ")[0]
             print(GBJ_res.rx2("GBJ")[0])
             outcome.loc[k, 3] = GBJ_res.rx2("GBJ_pvalue")[0]
-            print(GBJ_res.rx2("GBJ_pvalue")[0])
+            print(GBJ_res.rx2("GBJ_pvalue")[0]) 
     # output the results
     os.chdir(out_dir)
     filename = output_name + "_" + str(nstart) + "_" + str(nend) + ".txt"
