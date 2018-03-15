@@ -144,7 +144,7 @@ The example command parameters:
 **7. Calculate the joint tissue covariance**
 ```bash
 python2 ./joint_covariance.py \
---weight_db /YOUR_UTMOST_DIR/sample_data/weight_db_v2/ \
+--weight_db /YOUR_UTMOST_DIR/sample_data/weight_db/ \
 --input_folder /YOUR_UTMOST_DIR/YOUR_DOSAGE_DIR/ \
 --covariance_output /YOUR_UTMOST_DIR/intermediate/tmp/
 
