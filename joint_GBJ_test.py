@@ -5,7 +5,7 @@ joint_GBJ
 
 @author:     zhao_lab
 
-@copyright:  2017 organization_name. All rights reserved.
+@copyright:  2017 Zhao Lab. All rights reserved.
 
 @license:    license
 
