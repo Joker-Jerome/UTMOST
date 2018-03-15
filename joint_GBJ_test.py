@@ -295,6 +295,7 @@ def run(args):
             _tmp_pvalue = outcome.loc[k, _tmp_index+5]
             outcome.loc[k, 2] = _tmp_zscore
             outcome.loc[k, 3] = _tmp_pvalue
+            continue
         else:
             # test cannot be done
             continue
