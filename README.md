@@ -48,10 +48,10 @@ $ git clone https://github.com/Joker-Jerome/UTMOST
 $ cd ./UTMOST
 ```
 
-**3. Download sample data [sample data](dl.dropboxusercontent.com/s/eerk8o0nqr2uc2g/sample_data.zip)**
+**3. Download sample data [sample data](https://drive.google.com/uc?export=download&id=1u8CRwb6rZ-gSPl89qm3tKpJArUT8XrEe)**
 ```bash
 # You can click on the link above or run the following
-$ wget dl.dropboxusercontent.com/s/eerk8o0nqr2uc2g/sample_data.zip
+$ wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1u8CRwb6rZ-gSPl89qm3tKpJArUT8XrEe' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1u8CRwb6rZ-gSPl89qm3tKpJArUT8XrEe" -O sample_data.zip && rm -rf /tmp/cookies.txt
 ```
 
 **4. Unzip the data.zip file**
@@ -145,7 +145,7 @@ The example command parameters:
 ```bash
 python2 ./joint_covariance.py \
 --weight_db /YOUR_UTMOST_DIR/sample_data/weight_db_v2/ \
---input_folder /YOUR_UTMOST_DIR/sample_data/dosage/ \
+--input_folder /YOUR_UTMOST_DIR/YOUR_DOSAGE_DIR/ \
 --covariance_output /YOUR_UTMOST_DIR/intermediate/tmp/
 
 ```
@@ -180,9 +180,9 @@ The example command parameters:
 8. Joint GBJ test
 ```bash
 $ python2 joint_GBJ_test.py \
---weight_db /YOUR_UTMOST_DIR/sample_data/weight_db_v2/ \
+--weight_db /YOUR_UTMOST_DIR/sample_data/weight_db/ \
 --output_dir /YOUR_UTMOST_DIR/results/ \
---cov_dir /YOUR_UTMOST_DIR/intermediate/tmp/ \
+--cov_dir /YOUR_UTMOST_DIR/sample/tmp/ \
 --input_folder /YOUR_UTMOST_DIR/sample_data/mask/ \
 --gene_info /YOUR_UTMOST_DIR/intermediate/gene_info.txt \
 --output_name test
