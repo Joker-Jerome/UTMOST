@@ -221,6 +221,10 @@ The example command parameters:
 * *--end_gene_index*
 
   Index of the ending gene
+
+Output format:
+
+  Gene Test_Score P_Value
   
 ## Acknowledgement
 Part of the code is modified from MetaXcan https://github.com/hakyimlab/MetaXcan. We thank them for sharing the code.
