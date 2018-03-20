@@ -303,7 +303,7 @@ def run(args):
         if np.allclose(cov_gene,cov_gene.T):
             # GBJ
             # convert the python object to r object
-            cov_gene = cov_gene.round(8)
+            cov_gene = cov_gene.round(10)
             r_zscore_gene = r.matrix(zscore_gene)
             r_cov_gene = r.matrix(cov_gene, nrow = cov_gene.shape[0])
             # run the test            
