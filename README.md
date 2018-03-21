@@ -230,3 +230,5 @@ Output format:
 Part of the code is modified from MetaXcan https://github.com/hakyimlab/MetaXcan. We thank them for sharing the code.
 
 ## Reference
+Hu et al. (2018). A statistical framework for cross-tissue transcriptome-wide association analysis. bioRxiv, 286013. 
+[Link](https://www.biorxiv.org/content/early/2018/03/21/286013)
