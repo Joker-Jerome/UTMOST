@@ -162,6 +162,7 @@ def run(args):
     os.chdir(db_dir) 
     # initialize the outcome matrix
     outcome = pd.DataFrame(np.zeros(shape =(P,49)))
+    outcome.iloc[:,:] = np.nan
     outcome.loc[:,0] = gene_id[(nstart-1):nend]
     outcome.loc[:,1] = gene_name[(nstart-1):nend]
     outcome = outcome.rename(columns={0:"gene_id",1:"gene_name"})
@@ -315,9 +316,9 @@ def run(args):
             print(GBJ_res.rx2("GBJ_pvalue")[0]) 
     # output the results
     os.chdir(out_dir)
+    output_df = outcome.iloc[:,1:4]
     filename = output_name + "_" + str(nstart) + "_" + str(nend) + ".txt"
-    outcome.to_csv(filename, header=None, index=None, sep='\t', mode='w')
-    
+    output_df.to_csv(filename, na_rep='NA',header=["gene","test_score","p_value"], index=None, sep='\t', mode='w')
 
 if __name__ == "__main__":
     import argparse
