@@ -224,7 +224,8 @@ The example command parameters:
 
 Output format:
 
-  | gene        | test_score     | P_value  |
+  | Gene        | Test score     | P value  |
+  |             |                |          |
   | ------------- |:-------------:| -----:|
 
   
