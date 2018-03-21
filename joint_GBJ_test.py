@@ -193,7 +193,7 @@ def run(args):
         M = len(snp_rsid) 
         logging.info("Number of SNPs: " + str(M))
         
-        # weights1: matrix of eqtl tissues (47 in total)
+        # weights1: matrix of eqtl tissues 
         weights1 = np.zeros(shape = (M, len(indi1)))
         for i in range(len(indi1)):
             #logging.info("Database: " + str(i+1))
@@ -258,7 +258,7 @@ def run(args):
                 cov_gene[:,i] = cov_gene[:,i] / cov_gene[i,i]
         
         
-        ## zscore_gene1: z-score of eqtl tissues (47 including NA)
+        ## zscore_gene1: z-score of eqtl tissues 
         zscore_gene1 = np.empty(len(indi1))
         for i in range(len(indi1)):
             nam = "zscore_" + str(indi1[i] + 1)
