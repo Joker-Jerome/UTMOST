@@ -226,8 +226,8 @@ Output format:
 
   | Gene        | Test score     | P value  |
   | ------------- |:-------------:| -----:|
-  |      *    |                |          |
-  |      *    |                |          |
+  |      Gene A    | test score A               |  P value A        |
+  |      Gene B    | test score B               |  P value B        |
 
   
 ## Acknowledgement
