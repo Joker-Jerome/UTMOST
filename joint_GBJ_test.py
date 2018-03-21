@@ -163,8 +163,8 @@ def run(args):
     # initialize the outcome matrix
     outcome = pd.DataFrame(np.zeros(shape =(P,49)))
     outcome.iloc[:,:] = np.nan
-    outcome.loc[:,0] = gene_id[(nstart-1):nend]
-    outcome.loc[:,1] = gene_name[(nstart-1):nend]
+    outcome.loc[:,0] = gene_id[(nstart-1):nend].values
+    outcome.loc[:,1] = gene_name[(nstart-1):nend].values
     outcome = outcome.rename(columns={0:"gene_id",1:"gene_name"})
    
     # read the database 
