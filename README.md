@@ -223,6 +223,7 @@ The example command parameters:
   Index of the ending gene
 
 Output format:
+
   | gene        | test_score     | P_value  |
   | ------------- |:-------------:| -----:|
 
