@@ -69,7 +69,7 @@ python2 ./single_tissue_covariance.py \
 ```
 The example command parameters:
 
-* *--model_db_path* 
+* *--weight_db* 
 
   Path to tissue transriptome model.
   
