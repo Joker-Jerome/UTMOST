@@ -142,7 +142,6 @@ class ProcessWeightDB(object):
                 covariance_dir = os.path.dirname(self.covariance_output)
                 if not os.path.exists(covariance_dir):
                     os.makedirs(covariance_dir)
-                self.writeFileHeader(self.covariance_output)
 
         if not do_covariances:
             return
