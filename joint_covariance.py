@@ -61,6 +61,7 @@ class ProcessWeightDB(object):
         self.db_logic_dict = {}
         self.gene_rsid_dict = {}
         self.db_file_list = []
+        self.gene_count = 0
         
         # preprocessing filter
         self.min_maf_filter = float(args.min_maf_filter) if args.min_maf_filter else None
@@ -195,15 +196,15 @@ class ProcessWeightDB(object):
         if len(related_rsids) == 0:
             return []
 
-        self.updateFoundCovariance(gene, name)
+        #self.updateFoundCovariance(gene, name)
 
         #covariance matrix of related SNP's data
         array = np.array(related_data)
         cov = np.cov(array)
-        self.total_gene += 1;
-        logging.info("GENE:" + str(self.total_gene))
+        self.gene_count += 1;
+        logging.info("GENE:" + str(self.gene_count))
         
-        #save the covariance matrix
+        # save the covariance matrix
         # write the cov matrix
         cov_filename = self.covariance_output + "/" + gene + ".cov"
         with open(cov_filename,"w") as fo:
