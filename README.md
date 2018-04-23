@@ -58,7 +58,8 @@ The data folder will include the following files/folders:
 weight_db_v2
 ```
 **4. Quick start**
-**The following part is a demonstration of applying UTMOST with imputation models jointly trained in 44 tissues with GTEx data. The sample_data.zip contains pre-calculated imputation models, covariance matrices for single tissue and joint tissue GBJ test. Pipeline for generating your own covariance matrices and incorporating other eQTL/sQTL data (e.g. from [STARNET](https://github.com/Wainberg/Vulnerabilities_of_TWAS) and [BLUEPRINT]((ftp://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint Epivar/qtl_as/), i.e. the analysis pipeline used in manuscript) could be found in Section 5.**
+
+**The following part is a demonstration of applying UTMOST with imputation models jointly trained in 44 tissues with GTEx data. The sample_data.zip contains pre-calculated imputation models, covariance matrices for single tissue and joint tissue GBJ test. Pipeline for generating your own covariance matrices and incorporating other eQTL/sQTL data (e.g. from [STARNET](https://github.com/Wainberg/Vulnerabilities_of_TWAS) and [BLUEPRINT](ftp://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint Epivar/qtl_as/), i.e. the analysis pipeline used in manuscript) could be found in Section 5.**
 
 **4.1. Run single tissue association test for 44 tissues**
 ```bash
