@@ -18,6 +18,16 @@ The software is developed and tested in Linux and Mac OS environments.
 
 * R is needed for GBJ testing.
 
+* GBJ ([0.5.0](https://cran.r-project.org/web/packages/GBJ/index.html))
+
+```bash
+## Install python module with pip
+$ pip install numpy --user
+
+## GBJ could be installed with R interface
+install.packages('GBJ')
+```
+
 ## Project Layout
 
 * single_tissue_covariance.py
