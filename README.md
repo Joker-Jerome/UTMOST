@@ -58,7 +58,10 @@ $ wget --load-cookies /tmp/cookies.txt "https://drive.google.com/uc?export=downl
 ```bash
 $ unzip sample_data.zip
 ```
-The data folder will include a **Model Database**, a **GWAS summary statistics**.
+The data folder will include the following files/folders:
+```
+weight_db_v2
+```
 
 **5. Calculate the single tissue covariance**
 ```bash
