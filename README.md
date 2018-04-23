@@ -286,7 +286,7 @@ $ python2 joint_GBJ_test.py \
 
   
 ## Acknowledgement
-Part of the code is modified from MetaXcan https://github.com/hakyimlab/MetaXcan. We thank them for sharing the code.
+Part of the code is modified from MetaXcan https://github.com/hakyimlab/MetaXcan. We thank the authors for sharing the code.
 
 ## Reference
 **Hu et al. (2018). A statistical framework for cross-tissue transcriptome-wide association analysis. bioRxiv, 286013.**
