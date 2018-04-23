@@ -36,7 +36,7 @@ The following example assumes that you have **python 2.7**, **numpy**, **pandas*
 All of these functions take different number of command line parameters. Run them with --help or -h option to see the options.
 
 ## Quick start
-**This section is a demonstration of applying UTMOST with imputation models jointly trained in 44 tissues with GTEx data. The sample_data.zip contains pre-calculated imputation models, covariance matrices for single tissue and joint tissue GBJ test. Pipeline for generating your own covariance matrices and incorporating other eQTL/sQTL data (e.g. from [STARNET](https://github.com/Wainberg/Vulnerabilities_of_TWAS) and [BLUEPRINT](ftp://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_Epivar/qtl_as/)), i.e. the analysis pipeline used in manuscript) could be found in the following section.**
+**This section is a demonstration of applying UTMOST with imputation models jointly trained in 44 tissues with GTEx data. The sample_data.zip contains pre-calculated imputation models, covariance matrices for single tissue and joint tissue GBJ test. Pipeline for generating your own covariance matrices and incorporating other eQTL/sQTL data (e.g. from [STARNET](https://github.com/Wainberg/Vulnerabilities_of_TWAS) and [BLUEPRINT](ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_Epivar/qtl_as/)), i.e. the analysis pipeline used in manuscript) could be found in the following section.**
 
 **1. Clone the UTMOST repository**
 ```bash
