@@ -23,6 +23,9 @@ The software is developed and tested in Linux and Mac OS environments.
 ```bash
 ## Install python module with pip
 $ pip install numpy --user
+$ pip install scipy --user
+$ pip install pandas --user
+$ pip install -Iv rpy2==2.8.6 --user
 
 ## GBJ could be installed with R interface
 install.packages('GBJ')
