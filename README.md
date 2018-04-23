@@ -32,7 +32,6 @@ The software is developed and tested in Linux and Mac OS environments.
 
 * metax module
                         
-## Dependency
 The following example assumes that you have **python 2.7**, **numpy**, **pandas**, **scipy**, **rpy2**, and **R** installed. 
 All of these functions take different number of command line parameters. Run them with --help or -h option to see the options.
 
@@ -58,7 +57,9 @@ The data folder will include the following files/folders:
 ```
 weight_db_v2
 ```
-**4. Run UTMOST with cross-tissue imputation models trained in 44 GTEx tissues
+
+**4. Run UTMOST with cross-tissue imputation models trained in 44 GTEx tissues**
+
 **4.1. Run single tissue association test for 44 tissues**
 ```bash
 TISSUE_GTEx=(Adipose_Subcutaneous Adipose_Visceral_Omentum Adrenal_Gland Artery_Aorta Artery_Coronary Artery_Tibial Brain_Anterior_cingulate_cortex_BA24 Brain_Caudate_basal_ganglia Brain_Cerebellar_Hemisphere Brain_Cerebellum Brain_Cortex Brain_Frontal_Cortex_BA9 Brain_Hippocampus Brain_Hypothalamus Brain_Nucleus_accumbens_basal_ganglia Brain_Putamen_basal_ganglia Breast_Mammary_Tissue Cells_EBV-transformed_lymphocytes Cells_Transformed_fibroblasts Colon_Sigmoid Colon_Transverse Esophagus_Gastroesophageal_Junction Esophagus_Mucosa Esophagus_Muscularis Heart_Atrial_Appendage Heart_Left_Ventricle Liver Lung Muscle_Skeletal Nerve_Tibial Ovary Pancreas Pituitary Prostate Skin_Not_Sun_Exposed_Suprapubic Skin_Sun_Exposed_Lower_leg Small_Intestine_Terminal_Ileum Spleen Stomach Testis, Thyroid Uterus Vagina Whole_Blood)
