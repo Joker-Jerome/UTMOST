@@ -1,3 +1,5 @@
+**[Update]--4/24/18--reference data now contains pre-calculated imputation models, covariance matrices for single-tissue and joint tests; updated pipeline for single-tissue/joint tests using 44 GTEx tissues + STARNET liver + BLUEPRINT 3 cell types (eQTL/sQTL).**
+
 # UTMOST
 
 UTMOST (Unified Test for MOlecular SignaTures) is a principled method to perform cross-tissue expression imputation and gene-level association analysis. The preprint could be found at [A statistical framework for cross-tissue transcriptome-wide association analysis](https://www.biorxiv.org/content/early/2018/03/21/286013).
@@ -49,7 +51,7 @@ The following example assumes that you have **python 2.7**, **numpy**, **pandas*
 All of these functions take different number of command line parameters. Run them with --help or -h option to see the options.
 
 ## Quick start
-**This section is a demonstration of applying UTMOST with imputation models jointly trained in 44 tissues with GTEx data. The sample_data.zip contains pre-calculated imputation models, covariance matrices for single tissue and joint tissue GBJ test. Pipeline for generating your own covariance matrices and incorporating other eQTL/sQTL data (e.g. from [STARNET](https://github.com/Wainberg/Vulnerabilities_of_TWAS) and BLUEPRINT (ftp://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_Epivar/qtl_as/)), i.e. the analysis pipeline used in manuscript) could be found in the following section.**
+**This section is a demonstration of applying UTMOST with imputation models jointly trained in 44 tissues with GTEx data. The sample_data.zip contains pre-calculated imputation models, covariance matrices for single tissue and joint tissue GBJ test. Pipeline for generating covariance matrices with your own imputation models and incorporating other eQTL/sQTL data (e.g. from [STARNET](https://github.com/Wainberg/Vulnerabilities_of_TWAS) and BLUEPRINT (ftp://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_Epivar/qtl_as/)), i.e. the analysis pipeline used in manuscript) could be found in the following section.**
 
 **1. Clone the UTMOST repository**
 ```bash
@@ -60,7 +62,7 @@ $ git clone https://github.com/Joker-Jerome/UTMOST
 ```bash
 $ cd ./UTMOST
 ```
-**3. Download reference data (~12GB for zipped file, ~50GB after unzipping)**
+**3. Download reference data (~30GB for zipped file, ~50GB after unzipping)**
 ```bash
 # You can click on the link above or run the following
 $ wget --load-cookies /tmp/cookies.txt "https://drive.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies  /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://drive.google.com/uc?export=download&id=1u8CRwb6rZ-gSPl89qm3tKpJArUT8XrEe' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1u8CRwb6rZ-gSPl89qm3tKpJArUT8XrEe" -O sample_data.zip && rm -rf /tmp/cookies.txt
@@ -68,7 +70,8 @@ $ unzip sample_data.zip
 ```
 The data folder will include the following files/folders:
 ```
-weight_db_v2
+covariance_joint
+covariance.txt.gz  dosage  GWAS  mask  weight_db_external  weight_db_GTEx
 ```
 
 **4. Run UTMOST with cross-tissue imputation models trained in 44 GTEx tissues**
