@@ -251,6 +251,7 @@ python2 ./single_tissue_association_test.py \
 --beta_column BETA \
 --pvalue_column P \
 --output_file results/${tissue}.csv
+done
 ```
 
 **5.3. Calculate the joint tissue covariance**
