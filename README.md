@@ -47,7 +47,7 @@ install.packages('GBJ')
 
 * metax module
                         
-The following example assumes that you have **python 2.7**, **numpy**, **pandas**, **scipy**, **rpy2**, and **R** installed. 
+The following example assumes that you have **python 2.7**, **numpy**, **pandas**, **scipy**, **rpy2**, **R** and **GBJ** installed. 
 All of these functions take different number of command line parameters. Run them with --help or -h option to see the options.
 
 ## Quick start
@@ -69,15 +69,15 @@ $ unzip sample_data.zip
 ```
 This folder will include the following files/folders:
 ```bash
-weight_db_GTEx ## jointly trained imputation models for 44 GTEx tissues 
-weight_db_external ## imputation models for STARNET liver tissue and BLUEPRINT 3 cell-type eQTL/sQTL data
-dosage ## a reference genotype panel for calculating covariance matrices
-GWAS ## a simulated GWAS summary stats file as an example
+weight_db_GTEx/ ## jointly trained imputation models for 44 GTEx tissues 
+weight_db_external/ ## imputation models for STARNET liver tissue and BLUEPRINT 3 cell-type eQTL/sQTL data
+dosage/ ## a reference genotype panel for calculating covariance matrices
+GWAS/ ## a simulated GWAS summary stats file as an example
 covariance.txt.gz and DGN-WB_0.5.db ## toy example for demonstrating single-tissue test
 ```
 To run single-tissue and joint GBJ test with these imputation models, you need to either generate covariance matrices with a reference genotype panel (for details see **Methods** section in manuscript) or you could download the **pre-calculated covariance matrices** for 44 GTEx tissues. Instructions on how to calculate covariance matrices could be found in **Section 5** in this tutorial.
 
-**3.2 Download pre-calculate covariance matrices for single-tissue/joint test (large file ~30GB for zipped file, ~50GB after unzipping)**
+**3.2 Download pre-calculate covariance matrices for single-tissue/joint test (large file 28GB for zipped file, ~50GB after unzipping)**
 ```bash
 $ cd sample_data
 $ wget --load-cookies /tmp/cookies.txt "https://drive.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies  /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://drive.google.com/uc?export=download&id=1dO-E5RBfnj300UW8waUtE1CoM4cusI1c' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1dO-E5RBfnj300UW8waUtE1CoM4cusI1c" -O covariance_tissue.tar.gz && rm -rf /tmp/cookies.txt
@@ -85,6 +85,7 @@ $ wget --load-cookies /tmp/cookies.txt "https://drive.google.com/uc?export=downl
 $ tar zxvf covariance_tissue.tar.gz
 $ unzip covariance_joint.zip
 ```
+**covariance_tissue/** and **covariance_joint/** contain covariance matrices required for single-tissue and joint gene-trait association tests, respectively.
 
 **4. Run UTMOST with cross-tissue imputation models trained in 44 GTEx tissues**
 
