@@ -1,4 +1,4 @@
-**[Update]--4/24/18--reference data now contains pre-calculated imputation models, covariance matrices for single-tissue and joint tests; updated pipeline for single-tissue/joint tests using 44 GTEx tissues + STARNET liver + BLUEPRINT 3 cell types (eQTL/sQTL).**
+**[Update]--4/24/18--pre-calculated covariance matrices for single-tissue and joint tests are downloadable now; updated pipeline for single-tissue/joint tests using 44 GTEx tissues + STARNET liver + BLUEPRINT 3 cell types (eQTL/sQTL).**
 
 # UTMOST
 
