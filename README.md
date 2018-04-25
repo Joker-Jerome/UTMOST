@@ -60,8 +60,8 @@ $ unzip sample_data.zip
 $ cd sample_data
 $ wget --load-cookies /tmp/cookies.txt "https://drive.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies  /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://drive.google.com/uc?export=download&id=1dO-E5RBfnj300UW8waUtE1CoM4cusI1c' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1dO-E5RBfnj300UW8waUtE1CoM4cusI1c" -O covariance_tissue.tar.gz && rm -rf /tmp/cookies.txt
 $ wget --load-cookies /tmp/cookies.txt "https://drive.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies  /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://drive.google.com/uc?export=download&id=1tqIW5Ms8p1StX7WXXWVa4TGKb5q58TPA' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1tqIW5Ms8p1StX7WXXWVa4TGKb5q58TPA" -O covariance_joint.zip && rm -rf /tmp/cookies.txt
-tar zxvf covariance_tissue.tar.gz
-unzip covariance_joint.zip
+$ tar zxvf covariance_tissue.tar.gz
+$ unzip covariance_joint.zip
 ```
 The data folder will include a **Model Database**, a **GWAS summary statistics**.
 
