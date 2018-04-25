@@ -77,12 +77,12 @@ covariance.txt.gz and DGN-WB_0.5.db ## toy example for demonstrating single-tiss
 ```
 To run single-tissue and joint GBJ test with these imputation models, you need to either generate covariance matrices with a reference genotype panel (for details see **Methods** section in manuscript) or you could download the **pre-calculated covariance matrices** for 44 GTEx tissues. Instructions on how to calculate covariance matrices could be found in **Section 5** in this tutorial.
 
-**3.2 Download pre-calculate covariance matrices for single-tissue/joint test (large file 28GB for zipped file, ~50GB after unzipping)**
+**3.2 Download pre-calculate covariance matrices for single-tissue/joint test (large file 28GB for zipped file, 45GB after unzipping)**
 ```bash
 $ cd sample_data
 $ wget --load-cookies /tmp/cookies.txt "https://drive.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies  /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://drive.google.com/uc?export=download&id=1dO-E5RBfnj300UW8waUtE1CoM4cusI1c' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1dO-E5RBfnj300UW8waUtE1CoM4cusI1c" -O covariance_tissue.tar.gz && rm -rf /tmp/cookies.txt
 $ wget --load-cookies /tmp/cookies.txt "https://drive.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies  /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://drive.google.com/uc?export=download&id=1tqIW5Ms8p1StX7WXXWVa4TGKb5q58TPA' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1tqIW5Ms8p1StX7WXXWVa4TGKb5q58TPA" -O covariance_joint.zip && rm -rf /tmp/cookies.txt
-$ tar zxvf covariance_tissue.tar.gz
+$ tar -zxvf covariance_tissue.tar.gz
 $ unzip covariance_joint.zip
 ```
 **covariance_tissue/** and **covariance_joint/** contain covariance matrices required for single-tissue and joint gene-trait association tests, respectively.
@@ -91,12 +91,14 @@ $ unzip covariance_joint.zip
 
 **4.1. Run single tissue association test for 44 tissues**
 ```bash
+cd ..
+mkdir sample_data/results
 TISSUE_GTEx=(Adipose_Subcutaneous Adipose_Visceral_Omentum Adrenal_Gland Artery_Aorta Artery_Coronary Artery_Tibial Brain_Anterior_cingulate_cortex_BA24 Brain_Caudate_basal_ganglia Brain_Cerebellar_Hemisphere Brain_Cerebellum Brain_Cortex Brain_Frontal_Cortex_BA9 Brain_Hippocampus Brain_Hypothalamus Brain_Nucleus_accumbens_basal_ganglia Brain_Putamen_basal_ganglia Breast_Mammary_Tissue Cells_EBV-transformed_lymphocytes Cells_Transformed_fibroblasts Colon_Sigmoid Colon_Transverse Esophagus_Gastroesophageal_Junction Esophagus_Mucosa Esophagus_Muscularis Heart_Atrial_Appendage Heart_Left_Ventricle Liver Lung Muscle_Skeletal Nerve_Tibial Ovary Pancreas Pituitary Prostate Skin_Not_Sun_Exposed_Suprapubic Skin_Sun_Exposed_Lower_leg Small_Intestine_Terminal_Ileum Spleen Stomach Testis, Thyroid Uterus Vagina Whole_Blood)
 for tissue in ${TISSUE_GTEx[@]}
 do
 python2 ./single_tissue_association_test.py \
 --model_db_path sample_data/weight_db_GTEx/${tissue}.db \
---covariance sample_data/covariance/${tissue}.txt.gz \
+--covariance sample_data/covariance_tissue/${tissue}.txt.gz \
 --gwas_folder sample_data/GWAS \
 --gwas_file_pattern ".*gz" \
 --snp_column SNP \
@@ -104,7 +106,7 @@ python2 ./single_tissue_association_test.py \
 --non_effect_allele_column A2 \
 --beta_column BETA \
 --pvalue_column P \
---output_file results/${tissue}.csv
+--output_file sample_data/results/${tissue}.csv
 done
 ```
 The example command parameters:
