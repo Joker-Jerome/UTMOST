@@ -63,7 +63,7 @@ $ wget --load-cookies /tmp/cookies.txt "https://drive.google.com/uc?export=downl
 $ tar zxvf covariance_tissue.tar.gz
 $ unzip covariance_joint.zip
 ```
-The data folder will include a **Model Database**, a **GWAS summary statistics**.
+The data folder will include a **Model Database**.
 
 **5. Calculate the single tissue covariance**
 ```bash
