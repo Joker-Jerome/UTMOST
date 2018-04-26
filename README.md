@@ -156,13 +156,16 @@ The example command parameters:
 **4.2. Combine gene-trait associations in 44 tissues by joint GBJ test**
 ```bash
 mkdir sample_data/results_GTEx ## save association results for cross-tissue joint test
+UTMOST_path=/absolute/path/to/UTMOST/
 $ python2 joint_GBJ_test.py \
---weight_db sample_data/weight_db_GTEx/ \
---output_dir sample_data/results_GTEx/ \
---cov_dir sample_data/covariance_joint/ \
---input_folder sample_data/results/ \
---gene_info intermediate/gene_info.txt \
+--weight_db $UTMOST_path/sample_data/weight_db_GTEx/ \
+--output_dir $UTMOST_path/sample_data/results_GTEx/ \
+--cov_dir $UTMOST_path/sample_data/covariance_joint/ \
+--input_folder $UTMOST_path/sample_data/results/ \
+--gene_info $UTMOST_path/intermediate/gene_info.txt \
 --output_name test_GTEx
+--start_gene_index 1
+--end_gene_index 17290
 ```
 
 The example command parameters:
@@ -193,11 +196,11 @@ The example command parameters:
   
 * *--start_gene_index*
 
-  Index of the starting gene (for parallel computing purpose, could test multiple gene at the same time to reduce computation time).
+  Index of the starting gene in intermediate/gene_info.txt (for parallel computing purpose, could test multiple gene at the same time to reduce computation time).
   
 * *--end_gene_index*
 
-  Index of the ending gene (for parallel computing purpose, could test multiple gene at the same time to reduce computation time).
+  Index of the ending gene in intermediate/gene_info.txt (for parallel computing purpose, could test multiple gene at the same time to reduce computation time).
 
 Output format:
 
