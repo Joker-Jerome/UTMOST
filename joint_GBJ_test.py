@@ -301,10 +301,10 @@ def run(args):
             # test cannot be done
             continue
         # check if the matrix is symmetric
-        if np.allclose(cov_gene,cov_gene.T):
+        if np.allclose(cov_gene,cov_gene.T, atol = 1e-10):
             # GBJ
             # convert the python object to r object
-            cov_gene = cov_gene.round(10)
+            cov_gene = cov_gene.round(8)
             r_zscore_gene = r.matrix(zscore_gene)
             r_cov_gene = r.matrix(cov_gene, nrow = cov_gene.shape[0])
             # run the test            
