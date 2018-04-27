@@ -89,11 +89,18 @@ $ unzip covariance_joint.zip
 ```
 **covariance_tissue/** and **covariance_joint/** contain covariance matrices required for single-tissue and joint gene-trait association tests, respectively.
 
+**3.3 Download example GWAS summary statistics [GIANT GWAS Anthropometric 2015 BMI data](https://portals.broadinstitute.org/collaboration/giant/index.php/GIANT_consortium_data_files)**
+```bash
+cd GWAS
+wget https://portals.broadinstitute.org/collaboration/giant/images/1/15/SNP_gwas_mc_merge_nogc.tbl.uniq.gz
+gunzip SNP_gwas_mc_merge_nogc.tbl.uniq.gz
+```
+
 **4. Run UTMOST with cross-tissue imputation models trained in 44 GTEx tissues**
 
 **4.1. Run single tissue association test for 44 tissues**
 ```bash
-cd ..
+cd ../.. ## at UTMOST/
 mkdir sample_data/results
 TISSUE_GTEx=(Adipose_Subcutaneous Adipose_Visceral_Omentum Adrenal_Gland Artery_Aorta Artery_Coronary Artery_Tibial Brain_Anterior_cingulate_cortex_BA24 Brain_Caudate_basal_ganglia Brain_Cerebellar_Hemisphere Brain_Cerebellum Brain_Cortex Brain_Frontal_Cortex_BA9 Brain_Hippocampus Brain_Hypothalamus Brain_Nucleus_accumbens_basal_ganglia Brain_Putamen_basal_ganglia Breast_Mammary_Tissue Cells_EBV-transformed_lymphocytes Cells_Transformed_fibroblasts Colon_Sigmoid Colon_Transverse Esophagus_Gastroesophageal_Junction Esophagus_Mucosa Esophagus_Muscularis Heart_Atrial_Appendage Heart_Left_Ventricle Liver Lung Muscle_Skeletal Nerve_Tibial Ovary Pancreas Pituitary Prostate Skin_Not_Sun_Exposed_Suprapubic Skin_Sun_Exposed_Lower_leg Small_Intestine_Terminal_Ileum Spleen Stomach Testis Thyroid Uterus Vagina Whole_Blood)
 for tissue in ${TISSUE_GTEx[@]}
@@ -102,12 +109,12 @@ python2 ./single_tissue_association_test.py \
 --model_db_path sample_data/weight_db_GTEx/${tissue}.db \
 --covariance sample_data/covariance_tissue/${tissue}.txt.gz \
 --gwas_folder sample_data/GWAS \
---gwas_file_pattern ".*gz" \
+--gwas_file_pattern SNP_gwas_mc_merge_nogc.tbl.uniq \
 --snp_column SNP \
 --effect_allele_column A1 \
 --non_effect_allele_column A2 \
---beta_column BETA \
---pvalue_column P \
+--beta_column b \
+--pvalue_column p \
 --output_file sample_data/results/${tissue}.csv
 done
 ```
@@ -163,7 +170,7 @@ $ python2 joint_GBJ_test.py \
 --cov_dir $UTMOST_path/sample_data/covariance_joint/ \
 --input_folder $UTMOST_path/sample_data/results/ \
 --gene_info $UTMOST_path/intermediate/gene_info.txt \
---output_name test_GTEx
+--output_name GIANT_BMI_2015_GTEx_44_joint
 --start_gene_index 1
 --end_gene_index 17290
 ```
