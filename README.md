@@ -187,7 +187,7 @@ The example command parameters:
   
 * *--input_folder*
 
-  Name of folder containing summary data.
+  Name of folder containing single-tissue association results (generated in **Section 4.1**).
   
 * *--cov_dir* 
 
