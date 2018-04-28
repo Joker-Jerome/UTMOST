@@ -256,13 +256,13 @@ python2 ./single_tissue_association_test.py \
 --model_db_path sample_data/weight_db_external/${tissue}.db \
 --covariance sample_data/covariance_external/${tissue}.txt.gz \
 --gwas_folder sample_data/GWAS \
---gwas_file_pattern ".*gz" \
+--gwas_file_pattern SNP_gwas_mc_merge_nogc.tbl.uniq \
 --snp_column SNP \
 --effect_allele_column A1 \
 --non_effect_allele_column A2 \
---beta_column BETA \
---pvalue_column P \
---output_file results/${tissue}.csv
+--beta_column b \
+--pvalue_column p \
+--output_file sample_data/results/${tissue}.csv
 done
 ```
 
@@ -305,13 +305,15 @@ The example command parameters:
 
 **5.4. Combine gene-trait associations in 44 tissues + STARNET liver eQTL + BLUEPRINT eQTL/sQTL by joint GBJ test**
 ```bash
+## note after 5.2, sample_data/results/ now contains 44 + 1 + 3*2 single-tissue association results
+UTMOST_path=/absolute/path/to/UTMOST/
 $ mkdir results_GTEx_external
 $ python2 joint_GBJ_test.py \
---weight_db sample_data/weight_db_GTEx_external/ \
---output_dir results_GTEx_external/ \
---cov_dir covariance_GTEx_external/ \
---input_folder sample_data/results/ \
---gene_info sample_data/intermediate/gene_info.txt \
+--weight_db $UTMOST_path/sample_data/weight_db_GTEx_external/ \
+--output_dir $UTMOST_path/results_GTEx_external/ \
+--cov_dir $UTMOST_path/covariance_GTEx_external/ \
+--input_folder $UTMOST_path/sample_data/results/ \
+--gene_info $UTMOST_path/intermediate/gene_info.txt \
 --output_name test_GTEx_external
 ```
 
