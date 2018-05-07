@@ -34,7 +34,6 @@ install.packages('GBJ')
 ```
 
 ## Project Layout
-<img src="./Figure1.png" width="200">
 * single_tissue_covariance.py
 
 * single_tissue_association_test.py
@@ -46,6 +45,8 @@ install.packages('GBJ')
 * test_tool
 
 * metax module
+
+<img src="./Figure1.png" width="400">
                         
 The following example assumes that you have **python 2.7**, **numpy**, **pandas**, **scipy**, **rpy2**, **R** and **GBJ** installed. 
 All of these functions take different number of command line parameters. Run them with --help or -h option to see the options.
