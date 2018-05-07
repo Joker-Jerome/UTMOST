@@ -34,7 +34,7 @@ install.packages('GBJ')
 ```
 
 ## Project Layout
-
+<img src="./Figure1.png" width="200">
 * single_tissue_covariance.py
 
 * single_tissue_association_test.py
