@@ -46,7 +46,7 @@ install.packages('GBJ')
 
 * metax module
 
-<img src="./Figure1.png" width="400">
+
                         
 The following example assumes that you have **python 2.7**, **numpy**, **pandas**, **scipy**, **rpy2**, **R** and **GBJ** installed. 
 All of these functions take different number of command line parameters. Run them with --help or -h option to see the options.
