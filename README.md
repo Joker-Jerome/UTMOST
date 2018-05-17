@@ -49,7 +49,7 @@ install.packages('GBJ')
 <img src="./workflow.png" width="450">
                         
 The following example assumes that you have **python 2.7**, **numpy**, **pandas**, **scipy**, **rpy2**, **R** and **GBJ** installed. 
-All of these functions take different number of command line parameters. Run them with --help or -h option to see the options.
+All of these functions take different number of command line parameters. Run them with --help or -h option to see the options. Codes for training cross-tissue gene-expression imputation models were curated in a separate [repo](https://github.com/yiminghu/PERMIT).
 
 ## Quick start
 **This section is a demonstration of applying UTMOST with imputation models jointly trained in 44 tissues with GTEx data. The sample_data.zip contains pre-calculated imputation models, covariance matrices for single tissue and joint tissue GBJ test. Pipeline for generating covariance matrices with your own imputation models and incorporating other eQTL/sQTL data (e.g. from [STARNET](https://github.com/Wainberg/Vulnerabilities_of_TWAS) and BLUEPRINT (ftp://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_Epivar/qtl_as/)), i.e. the analysis pipeline used in manuscript) could be found in the following section.**
