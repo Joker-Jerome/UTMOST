@@ -171,8 +171,8 @@ $ python2 joint_GBJ_test.py \
 --cov_dir $UTMOST_path/sample_data/covariance_joint/ \
 --input_folder $UTMOST_path/sample_data/results/ \
 --gene_info $UTMOST_path/intermediate/gene_info.txt \
---output_name GIANT_BMI_2015_GTEx_44_joint
---start_gene_index 1
+--output_name GIANT_BMI_2015_GTEx_44_joint \
+--start_gene_index 1 \
 --end_gene_index 17290
 ```
 
