@@ -161,7 +161,7 @@ def run(args):
     #directory of db
     os.chdir(db_dir) 
     # initialize the outcome matrix
-    outcome = pd.DataFrame(np.zeros(shape =(P,49)))
+    outcome = pd.DataFrame(np.zeros(shape =(P, N+5)))
     outcome.iloc[:,:] = np.nan
     outcome.loc[:,0] = gene_id[(nstart-1):nend].values
     outcome.loc[:,1] = gene_name[(nstart-1):nend].values
