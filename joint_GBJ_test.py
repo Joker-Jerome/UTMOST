@@ -161,7 +161,7 @@ def run(args):
     #directory of db
     os.chdir(db_dir) 
     # initialize the outcome matrix
-    outcome = pd.DataFrame(np.zeros(shape =(P, N+5)))
+    outcome = pd.DataFrame(np.zeros(shape =(P,N+5)))
     outcome.iloc[:,:] = np.nan
     outcome.loc[:,0] = gene_id[(nstart-1):nend].values
     outcome.loc[:,1] = gene_name[(nstart-1):nend].values
@@ -272,6 +272,7 @@ def run(args):
   
         ## zscore_gene2: z-score of sqtl tissues (each matched intron has a z-score including NA)
         zscore_gene2 = np.array([])
+        pvalue_gene2 = np.array([])
         for i in range(len(indi2)):
             intron = intron_name[i]
             nam = "zscore_" + str(indi2[i] + 1)
@@ -280,9 +281,12 @@ def run(args):
                     index = zscore_dict[nam]["gene"] == intron[j]
                     if sum(index) > 0:
                         tmp_zscore_gene = zscore_dict[nam]["zscore"][index].values[0]
+                        tmp_pvalue_gene = zscore_dict[nam]["pvalue"][index].values[0]
                     else:
                         tmp_zscore_gene = np.nan
+                        tmp_pvalue_gene = np.nan
                     zscore_gene2 = np.append(zscore_gene2, tmp_zscore_gene)
+                    pvalue_gene2 = np.append(pvalue_gene2, tmp_pvalue_gene)
         ##matrix of zscores for all eqtl and sqtl tissues (the same dimension with cov_gene matrix)
         zscore_gene = np.concatenate((zscore_gene1,zscore_gene2))   
         #only keep tissues with prediction model for gene
@@ -293,7 +297,10 @@ def run(args):
         elif sum(index) == 1:
             _tmp_index = np.argmax(np.isnan(zscore_gene) == False)
             _tmp_zscore = zscore_gene[_tmp_index]
-            _tmp_pvalue = outcome.loc[k, _tmp_index+5]
+            if _tmp_index < len(indi1):
+                _tmp_pvalue = outcome.loc[k, _tmp_index+5]      
+            else:
+                _tmp_pvalue = pvalue_gene2[_tmp_index - len(indi1)]      
             outcome.loc[k, 2] = _tmp_zscore
             outcome.loc[k, 3] = _tmp_pvalue
             continue
