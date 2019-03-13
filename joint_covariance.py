@@ -284,7 +284,7 @@ if __name__ == "__main__":
 
     parser.add_argument("--gene_info",
                         help="name of folder containing gene list",
-                        default="/ysm-gpfs/home/zy92/project/metaxcan/createdb/genelist/gene_info.txt")
+                        default="./intermediate/gene_info.txt")
     parser.add_argument('--input_format',
                    help='Input dosage files format. Valid options are: IMPUTE, PrediXcan',
                    default=Formats.PrediXcan)
