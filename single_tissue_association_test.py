@@ -9,6 +9,7 @@ import os
 
 from metax import Exceptions
 from metax import Logging
+from metax import Filtering
 from metax.gwas import Utilities as GWASUtilities
 
 import metax.M03_betas as M03_betas
@@ -25,6 +26,7 @@ def run(args):
     args.output_folder = None
     g = M03_betas.run(args)
     M04_zscores.run(args, g)
+    Filtering.run(args)
 
 if __name__ == "__main__":
     import argparse
