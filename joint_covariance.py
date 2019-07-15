@@ -77,7 +77,7 @@ class ProcessWeightDB(object):
         
         # list all the databases in the path
         for file in sorted(os.listdir(self.db_path)):
-            if file.endswith(".db") and not file.endswith("sqtl.db"):
+            if file.endswith(".db"):
                 self.db_file_list.append(file)
         
         # load the database and build the separate db entry logic
@@ -99,15 +99,16 @@ class ProcessWeightDB(object):
             count_gene = 0
             num_gene = len(db_logic.weights_by_gene.keys())
             for gene in db_logic.weights_by_gene.keys():
+                gene_name = db_logic.gene_data_for_gene[gene].gene_name 
                 count_gene += 1 
                 if count_gene % 150 == 0:
-                    logging.info("Percentage of genes processed  " + str(round(float(count_gene)/float(num_gene),2)*100))
-                if gene in tmp_logic_object.weights_by_gene.keys():
+                    logging.info("Percentage of genes processed  " + str(round(float(count_gene)/float(num_gene),2)*100))            
+                if gene_name in tmp_logic_object.weights_by_gene.keys():
                     for rsid in db_logic.weights_by_gene[gene].keys():
-                        if rsid not in tmp_logic_object.weights_by_gene[gene].keys():
-                            tmp_logic_object.weights_by_gene[gene][rsid] = db_logic.weights_by_gene[gene][rsid]              
+                        if rsid not in tmp_logic_object.weights_by_gene[gene_name].keys():
+                            tmp_logic_object.weights_by_gene[gene_name][rsid] = db_logic.weights_by_gene[gene][rsid]              
                 else:
-                    tmp_logic_object.weights_by_gene[gene] = db_logic.weights_by_gene[gene]             
+                    tmp_logic_object.weights_by_gene[gene_name] = db_logic.weights_by_gene[gene]             
                 
         # summary of gene count and snp count
         logging.info("Total Genes:" + str(len(tmp_logic_object.weights_by_gene.keys())))
@@ -138,7 +139,6 @@ class ProcessWeightDB(object):
         if do_covariances:
             if os.path.exists(self.covariance_output):
                 logging.info("%s already exists, delete it if you want it figured out again", self.covariance_output)
-                do_covariances = False
             else:
                 covariance_dir = os.path.dirname(self.covariance_output)
                 if not os.path.exists(covariance_dir):
