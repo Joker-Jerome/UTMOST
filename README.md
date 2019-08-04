@@ -317,7 +317,7 @@ $ python2 joint_GBJ_test.py \
 --gene_info $UTMOST_path/intermediate/gene_info.txt \
 --output_name test_GTEx_external
 ```
-**Conditional Analysis
+**Conditional Analysis**
 ```bash
 python2 joint_test_geneset.py \
 --utmost_dir $UTMOST_path \
