@@ -86,7 +86,8 @@ class WeightDB(object):
         if gene_key is None:
             results = self.cursor.execute("SELECT rsid, gene, weight, ref_allele, eff_allele FROM weights;")
         else:
-            results = self.cursor.execute("SELECT rsid, gene, weight, ref_allele, eff_allele FROM weights where gene = ?;", (gene_key))
+            sql = "SELECT rsid, gene, weight, ref_allele, eff_allele FROM weights where gene in ('" + "','".join(gene_key) + "')"
+            results = self.cursor.execute(sql)
 
         weights = self.weightEntriesFromResults(results, extra, callback)
         return  weights
@@ -167,3 +168,54 @@ class WeightDBEntryLogic(object):
 
         callback = ByNameCallback(self.weights_by_gene, self.genes_for_an_rsid, self.gene_data_for_gene)
         weights_db.loadFromDB(callback)
+
+class WeightDBEntryLogicGene(object):
+    def __init__(self, db_file_name, gene_key):
+        self.weights_by_gene = {}
+        self.genes_for_an_rsid = {}
+        self.gene_data_for_gene = {}
+        self.gene_key = gene_key
+        self._loadData(db_file_name)
+        
+
+    def anEntryWithRSID(self, rsid):
+        entry = None
+        if not rsid in self.genes_for_an_rsid:
+            return entry
+
+        genes = self.genes_for_an_rsid[rsid]
+        gene = genes[0]
+        weights = self.weights_by_gene[gene]
+        entry = weights[rsid]
+        return  entry
+
+    def _loadData(self, db_file_name):
+        weights_db = WeightDB(db_file_name)
+
+        class ByNameCallback(object):
+            """Helper class to group weights by gene name"""
+            def __init__(self, weights_by_gene, genes_for_an_rsid, gene_data_for_gene):
+                self.weights_by_gene = weights_by_gene
+                self.genes_for_an_rsid = genes_for_an_rsid
+                self.gene_data_for_gene = gene_data_for_gene
+
+            def __call__(self, weight, extra):
+                if weight.gene in self.weights_by_gene:
+                    weights = self.weights_by_gene[weight.gene]
+                else:
+                    weights = {}
+                    self.weights_by_gene[weight.gene] = weights
+                weights[weight.rsid]= weight
+
+                if not weight.rsid in self.genes_for_an_rsid:
+                    self.genes_for_an_rsid[weight.rsid] = []
+                genes = self.genes_for_an_rsid[weight.rsid]
+
+                if not weight.gene in genes:
+                    genes.append(weight.gene)
+
+                gene_entry = extra[weight.gene]
+                self.gene_data_for_gene[weight.gene] = gene_entry
+
+        callback = ByNameCallback(self.weights_by_gene, self.genes_for_an_rsid, self.gene_data_for_gene)
+        weights_db.loadFromDB(callback, self.gene_key)
