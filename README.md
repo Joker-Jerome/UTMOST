@@ -317,7 +317,86 @@ $ python2 joint_GBJ_test.py \
 --gene_info $UTMOST_path/intermediate/gene_info.txt \
 --output_name test_GTEx_external
 ```
+**Conditional Analysis
+```bash
+python2 joint_test_geneset.py \
+--utmost_dir $UTMOST_path \
+--weight_db $UTMOST_path/sample_data/weight_db_GTEx/ \
+--input_folder $UTMOST_path/sample_data/dosage/ \
+--gwas_str gwas \
+--gwas_folder /GWAS_data/ \
+--gwas_file_pattern GWAS.txt \
+--snp_column SNP \
+--effect_allele_column A1 \
+--non_effect_allele_column A2 \
+--beta_column BETA \
+--se_column SE \
+--pvalue_column P \
+--chr_idx 1 \
+--gene_list  Gene1,Gene2,Gene3 \
+--output_dir /output_dir/
+```
 
+The example command parameters:
+* *--utmost_dir* 
+
+  Path to UTMOST.
+  
+* *--weight_db* 
+
+  Path to gene expression imputation model (estimated weights/effect sizes of cis-eQTLs).
+  
+* *--input_folder*
+
+  Name of folder containing dosage data.
+  
+* *--gwas_str*
+
+  GWAS name string.
+  
+* *--gwas_folder* 
+
+  Folder containing GWAS summary statistics data.
+  
+* *--gwas_file_pattern* 
+
+  The file patten of gwas file (file name of summary statistics if not segmented by chromosomes).
+  
+* *--snp_column* 
+
+  Argument with the name of the column containing the RSIDs.
+  
+* *--effect_allele_column* 
+
+  Argument with the name of the column containing the effect allele.
+  
+* *--non_effect_allele_column* 
+
+  Argument with the name of the column containing the non-effect allele.
+  
+* *--beta_column* 
+
+  The column containing -effect size estimator for each SNP- in the input GWAS files.
+  
+* *--se_column*
+  
+  The column containing the standard error for effect size estimate. 
+  
+* *--pvalue_column* 
+
+  The column containing -PValue for each SNP- in the input GWAS files.
+  
+* *--chr_idx* 
+
+  Chromosome number.
+
+* *--gene_list* 
+
+  Genes to be tested.
+  
+* *--output_dir* 
+
+  Path where results will be saved to.
   
 ## Acknowledgement
 Part of the code is modified from MetaXcan https://github.com/hakyimlab/MetaXcan. We thank the authors for sharing the code.
