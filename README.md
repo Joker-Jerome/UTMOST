@@ -319,7 +319,7 @@ $ python2 joint_GBJ_test.py \
 ```
 **Conditional Analysis**
 ```bash
-python2 joint_test_geneset.py \
+python2 conditional_test_geneset.py \
 --utmost_dir $UTMOST_path \
 --weight_db $UTMOST_path/sample_data/weight_db_GTEx/ \
 --input_folder $UTMOST_path/sample_data/dosage/ \
