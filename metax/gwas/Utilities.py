@@ -3,10 +3,12 @@ import gzip
 import pandas
 import numpy
 
-import GWAS
-from .. import Exceptions
-from .. import Constants
-from .. import Utilities as BUtilities
+from . import GWAS
+import os, sys
+os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
+from metax import Exceptions
+from metax import Constants
+from metax import Utilities as BUtilities
 
 def add_gwas_arguments_to_parser(parser):
     parser.add_argument("--snp_column", help="Name of -snp column- in GWAS input file", default="SNP")
@@ -88,7 +90,7 @@ def gwas_filtered_source(path, snps=None, snp_column_name=None, skip_until_heade
 
         header_count = {k:header_comps.count(k) for k in header_comps}
         if len(header_count) < len(header_comps):
-            duplicated = [k for k,v in header_count.iteritems() if v>1]
+            duplicated = [k for k,v in header_count.items() if v>1]
             logging.info("The input GWAS has duplicated columns: %s, will only use the first one in each case", str(duplicated))
 
         strip_c = "\n" if separator else None

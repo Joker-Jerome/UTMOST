@@ -2,7 +2,7 @@ __author__ = 'heroico'
 
 import os
 import json
-import Exceptions
+from . import Exceptions
 
 VALID_ALLELES = ["A", "T", "C", "G"]
 
