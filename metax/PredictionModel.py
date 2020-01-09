@@ -2,7 +2,7 @@ import os
 import sqlite3
 import pandas
 
-import Exceptions
+from . import Exceptions
 
 class WDBQF(object):
     "Weight DB weight Query Format"
@@ -91,7 +91,7 @@ class ModelDB(object):
         try:
             results = self.cursor.execute(query, params)
         except sqlite3.OperationalError as e:
-            print str(e)
+            print(str(e))
             raise Exceptions.ReportableException("Could not read input tissue database. Please try updating the tissue model files.")
         except Exception as e:
             raise e

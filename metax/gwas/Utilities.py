@@ -3,10 +3,12 @@ import gzip
 import pandas
 import numpy
 
-import GWAS
-from .. import Exceptions
-from .. import Constants
-from .. import Utilities as BUtilities
+from . import GWAS
+import os, sys
+os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
+from metax import Exceptions
+from metax import Constants
+from metax import Utilities as BUtilities
 
 def add_gwas_arguments_to_parser(parser):
     parser.add_argument("--snp_column", help="Name of -snp column- in GWAS input file", default="SNP")

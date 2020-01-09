@@ -1,6 +1,6 @@
 import pandas
 import numpy
-import Exceptions
+from . import Exceptions
 
 def load_matrix_manager(path):
     d = pandas.read_table(path, sep="\s+")

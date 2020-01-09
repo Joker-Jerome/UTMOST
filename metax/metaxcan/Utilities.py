@@ -1,15 +1,16 @@
 import logging
 import pandas
-import os
+import os, sys
 import numpy
 from scipy import stats
 
-from .. import Constants
-from .. import Utilities
-from .. import MatrixManager
-from ..PredictionModel import WDBQF, WDBEQF, load_model, dataframe_from_weight_data
 
-import AssociationCalculation
+from metax import Constants
+from metax import Utilities
+from metax import MatrixManager
+from metax.PredictionModel import WDBQF, WDBEQF, load_model, dataframe_from_weight_data
+
+from . import AssociationCalculation
 
 class SimpleContext(AssociationCalculation.Context):
     def __init__(self, gwas, model, covariance):
