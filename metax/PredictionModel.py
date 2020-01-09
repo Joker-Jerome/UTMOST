@@ -80,7 +80,7 @@ class ModelDB(object):
         except Exception as e:
             raise e
 
-        weights = zip(*results)
+        weights = list(zip(*results))
         return  weights
 
     def load_extra(self, gene_key=None):
@@ -96,7 +96,7 @@ class ModelDB(object):
         except Exception as e:
             raise e
 
-        extra = zip(*results)
+        extra = list(zip(*results))
         return  extra
 
 def query_helper(query, gene_key=None):

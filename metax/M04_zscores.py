@@ -42,7 +42,7 @@ def run(args, _gwas=None):
     Utilities.ensure_requisite_folders(args.output_file)
 
     reporter.update(len(snps_found), "%d %% of model's snps used", force=True)
-    results = AssociationCalculation.dataframe_from_results(zip(*results))
+    results = AssociationCalculation.dataframe_from_results(list(zip(*results)))
     results = MetaxcanUtilities.format_output(results, context, args.remove_ens_version)
     results.to_csv(args.output_file, index=False)
     end = timer()
