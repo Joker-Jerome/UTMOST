@@ -1,4 +1,6 @@
-**[Update]--4/24/18--pre-calculated covariance matrices for single-tissue and joint tests are downloadable now; updated pipeline for single-tissue/joint tests using 44 GTEx tissues + STARNET liver + BLUEPRINT 3 cell types (eQTL/sQTL).**
+**[Update]--2023/06/09--for weights trained with GTEx v8, please visit https://zhaocenter.org/UTMOST.**
+
+**[Update]--2018/04/24--pre-calculated covariance matrices for single-tissue and joint tests are downloadable now; updated pipeline for single-tissue/joint tests using 44 GTEx tissues + STARNET liver + BLUEPRINT 3 cell types (eQTL/sQTL).**
 
 # UTMOST
 
