@@ -67,7 +67,7 @@ class ProcessWeightDB(object):
         self.min_maf_filter = float(args.min_maf_filter) if args.min_maf_filter else None
         self.max_maf_filter = float(args.max_maf_filter) if args.max_maf_filter else None
         self.max_snps_in_gene = int(args.max_snps_in_gene) if args.max_snps_in_gene else None
-
+        ## test
     def run(self):
         # run the main function
         if not self.covariance_output:
