@@ -1,10 +1,10 @@
-# [Update]--2023/06/09--for weights trained with GTEx v8, please visit https://zhaocenter.org/UTMOST.
+# [Update]--2025/10/23--There are issues about the previous links for downloading. Our team at Yale is actively reuploading the files and will release them soon
 
 **[Update]--2018/04/24--pre-calculated covariance matrices for single-tissue and joint tests are downloadable now; updated pipeline for single-tissue/joint tests using 44 GTEx tissues + STARNET liver + BLUEPRINT 3 cell types (eQTL/sQTL).**
 
-**[Acknowledgement]
+### Acknowledgement
 
-Many thanks to Chi Zhang, Tianyu Liu, Chen Lin, Yiming Shi from Zhao Lab for maintaining the packages and files.
+Many thanks to Chi Zhang, Tianyu Liu, Chen Lin, Yiming Shi from Zhao Lab for maintaining the packages and files. 
 
 # UTMOST
 
